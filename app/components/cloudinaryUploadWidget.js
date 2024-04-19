@@ -3,7 +3,7 @@ import { createContext, useEffect, useState } from "react";
 // Create a context to manage the script loading state
 const CloudinaryScriptContext = createContext();
 
-function CloudinaryUploadWidget({ uwConfig, setPublicId, onUpload, userName }) {
+function CloudinaryUploadWidget({ uwConfig, setPublicId, onUpload}) {
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
@@ -33,7 +33,7 @@ function CloudinaryUploadWidget({ uwConfig, setPublicId, onUpload, userName }) {
           if (!error && result && result.event === "success") {
             console.log("Done! Here is the image info: ", result.info);
             setPublicId(result.info.public_id);
-            onUpload(userName,result.info.public_id)
+            onUpload(result.info.public_id)
           }
         }
       );

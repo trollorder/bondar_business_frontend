@@ -2,9 +2,10 @@
 import React, { useState } from 'react';
 import CloudinaryUploadWidget from './cloudinaryUploadWidget';
 import axios from 'axios';
-function ImageUploader({userName}) {
+function ImageUploader({userEmail}) {
     const [selectedFile, setSelectedFile] = useState(null);
     const [public_id , setPublicId] = useState('')
+    const [userEmailLocal, setUserEmailLocal] = useState(userEmail)
     const [uwConfig] = useState({
         cloudName: 'doa0uiisg',
         uploadPreset:'fksiqlxn',
@@ -12,7 +13,7 @@ function ImageUploader({userName}) {
         // showAdvancedOptions: true,  //add advanced options (public_id and tag)
         sources: [ "local", "url"], // restrict the upload sources to URL and local files
         multiple: false,  //restrict upload to a single file
-        folder: userName, //upload files to the specified folder
+        folder: userEmailLocal, //upload files to the specified folder
         // tags: ["users", "profile"], //add the given tags to the uploaded files
         // context: {alt: "user_uploaded"}, //add the given context data to the uploaded files
         clientAllowedFormats: ["png", "jpg", "jpeg"], //restrict uploading to image files only
@@ -21,13 +22,13 @@ function ImageUploader({userName}) {
       });
 
     // on upload i need a database entry 
-    function onUpload(userName, imageId) {
-      axios.post(`${process.env.NEXT_PUBLIC_BACKENDURL}/new-image-upload`).then((console.log(userName,imageId)))
+    function onUpload(imageId) {
+      axios.post(`${process.env.NEXT_PUBLIC_BACKENDURL}/upload-new-image` , {userEmail: userEmailLocal, imageId:imageId}).then((console.log(userEmailLocal,imageId)))
     }
   return (
     <div className='p-2 flex justify-center'>
 
-        <CloudinaryUploadWidget uwConfig={uwConfig} setPublicId={setPublicId} onUpload={onUpload} userName={userName}/>
+        <CloudinaryUploadWidget uwConfig={uwConfig} setPublicId={setPublicId} onUpload={onUpload}/>
     </div>
     
   );
