@@ -23,7 +23,7 @@ function ImageUploader({userEmail}) {
 
     // on upload i need a database entry 
     function onUpload(imageId) {
-      axios.post(`${process.env.NEXT_PUBLIC_BACKENDURL}/upload-new-image` , {userEmail: userEmailLocal, imageId:imageId}).then((console.log(userEmailLocal,imageId)))
+      axios.post(`${process.env.NEXT_PUBLIC_BACKENDURL}/upload-new-image` , {userEmail: userEmailLocal, imageId:imageId, imageType: 'businessProfilePhoto'}).then((console.log(userEmailLocal,imageId)))
     }
   return (
     <div className='p-2 flex justify-center'>
