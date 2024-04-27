@@ -1,14 +1,25 @@
 'use client'
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Box, Button, MenuItem, Select, Typography } from '@mui/material';
 import Image from 'next/image';
-import profileImag from "../../assets/logo.jpg"
+import CloudinaryUploadWidget from './cloudinaryUploadWidget';
+import ImageUploader from './ImageUploader';
+import axios from 'axios';
 
 const ProfileBox = ({ editMode, toggleEditMode, businessName, businessAddress, retailType, retailSubtype, priceRange }) => {
   const [newRetailType, setNewRetailType] = useState(retailType);
   const [newRetailSubtype, setNewRetailSubtype] = useState(retailSubtype);
   const [newPriceRange, setNewPriceRange] = useState(priceRange);
-
+  const [userEmail, setUserEmail] = useState(
+    () => {
+      if (typeof window !== 'undefined' && window.localStorage) {
+        return localStorage.getItem('userEmail') || 'NoEmail';
+      } else {
+        return 'NoEmail';
+      }
+    }
+  )
+  const [profileImgUrl, setProfileImgUrl] = useState(null)
   const handleRetailTypeChange = (event) => {
     setNewRetailType(event.target.value);
   };
@@ -30,15 +41,20 @@ const ProfileBox = ({ editMode, toggleEditMode, businessName, businessAddress, r
     setNewPriceRange(priceRange);
   };
 
-  const handleImageUpload = () => {
-    // Implement image upload functionality
-  };
+  useEffect(()=>{
+    axios.get(`${process.env.NEXT_PUBLIC_BACKENDURL}/get-businessuser-image-by-type` , {params:{userEmail:userEmail, imageType: 'businessProfilePhoto'}})
+    .then((response)=>{
+      setProfileImgUrl(`${process.env.NEXT_PUBLIC_CLOUDINARY_DISPLAY_URL}/${response.data.imageList[0]}`)
+    })
+    .catch((err)=>console.log(err))
+  },[])
 
   return (
     <Box sx={{ border: 1, borderColor: 'black', borderRadius: '10px', textAlign: 'center', maxWidth: '400px', margin: 'auto', padding: '20px' }}>
       <div >
         <div className='flex flex-col items-center'>
-        <Image src={profileImag} alt="Profile Picture" style={{ borderRadius: '50%', width: '100px', height: '100px' }}  />
+          {/* Profile Picture */}
+        {profileImgUrl && <Image src={profileImgUrl} alt="Profile Picture" width={100} height={100} style={{ borderRadius: '50%', width: '100px', height: '100px' }}  />}
         </div>
         <div>
           <Typography variant="h4">{businessName}</Typography>
@@ -57,7 +73,7 @@ const ProfileBox = ({ editMode, toggleEditMode, businessName, businessAddress, r
       <div>
         {editMode ? (
           <div>
-            <Button onClick={handleImageUpload} variant="outlined">Upload new image</Button><br />
+            <ImageUploader userEmail={userEmail}/>
             <Select value={newRetailType} onChange={handleRetailTypeChange}>
               <MenuItem value="Type 1">Type 1</MenuItem>
               <MenuItem value="Type 2">Type 2</MenuItem>

@@ -20,18 +20,17 @@ import { IconButton } from '@mui/material';
 import { useRouter } from 'next/navigation';
 import { toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
+import { useState } from 'react';
 
 const defaultTheme = createTheme();
 
 export default function Login({onSubmitForm}) {
+  const[userEmail, setUserEmail] = useState(null);
+  const[password, setPassword] = useState(null);
+
   const handleSubmit = (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
-    onSubmitForm()
+    onSubmitForm({userEmail:userEmail , password : password})
   };
 
   return (
@@ -57,6 +56,8 @@ export default function Login({onSubmitForm}) {
               name="username"
               autoComplete="usrname"
               autoFocus
+              value={userEmail}
+              onChange={(e) => setUserEmail(e.target.value)}
             />
             <TextField
               margin="normal"
@@ -67,6 +68,8 @@ export default function Login({onSubmitForm}) {
               type="password"
               id="password"
               autoComplete="current-password"
+              value = {password}
+              onChange={(e) => setPassword(e.target.value)}
             />
 
             <div class="flex items-center justify-between">
@@ -92,7 +95,7 @@ export default function Login({onSubmitForm}) {
             </Button>
             <Grid container>
               <Grid item>
-                <Link href="#" class="text-sm underline">
+                <Link href="CreateAccount" class="text-sm underline">
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>
