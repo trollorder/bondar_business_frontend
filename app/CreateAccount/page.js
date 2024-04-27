@@ -13,7 +13,6 @@ const page = () => {
   const [submitForm, setSubmitForm] = useState({})
   function onSubmitForm(){
     toast.success('Account Created')
-    console.log(submitForm)
     router.push('/Home')
     // axios.post(`${process.env.NEXT_PUBLIC_BACKENDURL}/create-new-business-account` , submitForm)
     axios.post('http://localhost:8080/create-new-business-account', submitForm)

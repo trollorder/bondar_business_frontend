@@ -18,7 +18,6 @@ export default function SignUpPersonalInfo({setTab , setSubmitForm, submitForm})
   };
   function handleChange(newvalue, key){
     setSubmitForm({...submitForm, [key]:newvalue})
-    console.log(submitForm)
   }
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -87,17 +86,6 @@ export default function SignUpPersonalInfo({setTab , setSubmitForm, submitForm})
                   label="Email Address"
                   value={submitForm.userEmail}
                   onChange={(e) => handleChange(e.target.value , 'userEmail')}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  name="userName"
-                  required
-                  fullWidth
-                  label="Username"
-                  type="username"
-                  value={submitForm.userName}
-                  onChange={(e) => handleChange(e.target.value , 'userName')}
                 />
               </Grid>
               <Grid item xs={12}>

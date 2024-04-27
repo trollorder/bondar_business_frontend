@@ -52,11 +52,11 @@ export default function SignUpBusinessInfo({setTab,onSubmitForm,submitForm, setS
                 <TextField
                   required
                   fullWidth
-                  id="businessName"
-                  label="Business Name"
-                  name="businessName"
-                  autoComplete="businessName"
-                  value={submitForm.businessName}
+                  id="companyName"
+                  label="Company Name"
+                  name="companyName"
+                  autoComplete="companyName"
+                  value={submitForm.companyName}
                   onChange={(e) => handleChange(e.target.value, 'companyName')}
                 />
               </Grid>
@@ -64,11 +64,11 @@ export default function SignUpBusinessInfo({setTab,onSubmitForm,submitForm, setS
                 <TextField
                   required
                   fullWidth
-                  id="country"
-                  label="Country"
-                  name="country"
+                  id="companyCountry"
+                  label="Company Country"
+                  name="companyCountry"
                   autoComplete="country"
-                  value={submitForm.country}
+                  value={submitForm.companyCountry}
                   onChange={(e) => handleChange(e.target.value, 'companyCountry')}
                 />
               </Grid>
@@ -76,22 +76,22 @@ export default function SignUpBusinessInfo({setTab,onSubmitForm,submitForm, setS
                 <TextField
                   required
                   fullWidth
-                  id="businessAddress"
+                  id="companyAddress"
                   label="Business Address"
-                  name="businessAddress"
-                  autoComplete="businessAddress"
-                  value={submitForm.businessAddress}
+                  name="companyAddress"
+                  autoComplete="companyAddress"
+                  value={submitForm.companyAddress}
                   onChange={(e) => handleChange(e.target.value, 'companyAddress')}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
-                  name="zipCode"
+                  name="companyZip"
                   required
                   fullWidth
-                  id="zipCode"
+                  id="companyZip"
                   label="Zip Code"
-                  value={submitForm.zipCode}
+                  value={submitForm.companyZip}
                   onChange={(e) => handleChange(e.target.value, 'companyZip')}
                 />
               </Grid>
@@ -99,10 +99,10 @@ export default function SignUpBusinessInfo({setTab,onSubmitForm,submitForm, setS
                 <TextField
                   required
                   fullWidth
-                  id="state"
+                  id="companyState"
                   label="State"
-                  name="state"
-                  value={submitForm.state}
+                  name="companyState"
+                  value={submitForm.companyState}
                   onChange={(e) => handleChange(e.target.value, 'companyState')}
                 />
               </Grid>
@@ -110,11 +110,11 @@ export default function SignUpBusinessInfo({setTab,onSubmitForm,submitForm, setS
                 <TextField
                   required
                   fullWidth
-                  id="businessPhoneNumber"
+                  id="companyContactNumber"
                   label="Business Phone Number"
-                  name="businessPhoneNumber"
-                  autoComplete="businessPhoneNumber"
-                  value={submitForm.businessPhoneNumber}
+                  name="companyContactNumber"
+                  autoComplete="companyContactNumber"
+                  value={submitForm.companyContactNumber}
                   onChange={(e) => handleChange(e.target.value, 'companyContactNumber')}
                 />
               </Grid>
@@ -122,11 +122,11 @@ export default function SignUpBusinessInfo({setTab,onSubmitForm,submitForm, setS
                 <TextField
                   required
                   fullWidth
-                  id="businessEmail"
+                  id="companyEmail"
                   label="Business Email Address"
-                  name="businessEmail"
-                  autoComplete="businessEmail"
-                  value={submitForm.businessEmail}
+                  name="companyEmail"
+                  autoComplete="companyEmail"
+                  value={submitForm.companyEmail}
                   onChange={(e) => handleChange(e.target.value, 'companyEmail')}
                 />
               </Grid>
@@ -134,11 +134,11 @@ export default function SignUpBusinessInfo({setTab,onSubmitForm,submitForm, setS
                 <TextField
                   required
                   fullWidth
-                  name="businessType"
+                  name="companyType"
                   label="Business Type"
-                  type="businessType"
-                  id="businessType"
-                  value={submitForm.businessType}
+                  type="companyType"
+                  id="companyType"
+                  value={submitForm.companyType}
                   onChange={(e) => handleChange(e.target.value, 'companyType')}
                 />
               </Grid>
