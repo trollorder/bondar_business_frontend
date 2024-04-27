@@ -42,9 +42,11 @@ const ProfileBox = ({ editMode, toggleEditMode, businessName, businessAddress, r
   };
 
   useEffect(()=>{
-    axios.get(`${process.env.NEXT_PUBLIC_BACKENDURL}/get-businessuser-image-by-type` , {params:{userEmail:userEmail, imageType: 'businessProfilePhoto'}})
+    axios.get(`${process.env.NEXT_PUBLIC_BACKENDURL}/get-current-business-user-profile-img` , {params:{userEmail:userEmail}})
     .then((response)=>{
-      setProfileImgUrl(`${process.env.NEXT_PUBLIC_CLOUDINARY_DISPLAY_URL}/${response.data.imageList[0]}`)
+      const url = `${process.env.NEXT_PUBLIC_CLOUDINARY_DISPLAY_URL}/${response.data.imageUrl}`
+      setProfileImgUrl(url)
+      console.log(url)
     })
     .catch((err)=>console.log(err))
   },[])
@@ -74,21 +76,23 @@ const ProfileBox = ({ editMode, toggleEditMode, businessName, businessAddress, r
         {editMode ? (
           <div>
             <ImageUploader userEmail={userEmail}/>
-            <Select value={newRetailType} onChange={handleRetailTypeChange}>
-              <MenuItem value="Type 1">Type 1</MenuItem>
-              <MenuItem value="Type 2">Type 2</MenuItem>
-              <MenuItem value="Type 3">Type 3</MenuItem>
-            </Select><br />
-            <Select value={newRetailSubtype} onChange={handleRetailSubtypeChange}>
-              <MenuItem value="Subtype 1">Subtype 1</MenuItem>
-              <MenuItem value="Subtype 2">Subtype 2</MenuItem>
-              <MenuItem value="Subtype 3">Subtype 3</MenuItem>
-            </Select><br />
-            <Select value={newPriceRange} onChange={handlePriceRangeChange}>
-              <MenuItem value="Low">$</MenuItem>
-              <MenuItem value="Medium">$$</MenuItem>
-              <MenuItem value="High">$$$</MenuItem>
-            </Select>
+            <div className='flex w-full justify-center space-x-2'>
+              <Select className='w-1/3' value={newRetailType} onChange={handleRetailTypeChange}>
+                <MenuItem value="Type 1">Type 1</MenuItem>
+                <MenuItem value="Type 2">Type 2</MenuItem>
+                <MenuItem value="Type 3">Type 3</MenuItem>
+              </Select><br />
+              <Select className='w-1/3' value={newRetailSubtype} onChange={handleRetailSubtypeChange}>
+                <MenuItem value="Subtype 1">Subtype 1</MenuItem>
+                <MenuItem value="Subtype 2">Subtype 2</MenuItem>
+                <MenuItem value="Subtype 3">Subtype 3</MenuItem>
+              </Select><br />
+              <Select  className='w-1/3' value={newPriceRange} onChange={handlePriceRangeChange}>
+                <MenuItem value="Low">$</MenuItem>
+                <MenuItem value="Medium">$$</MenuItem>
+                <MenuItem value="High">$$$</MenuItem>
+              </Select>
+            </div>
           </div>
         ) : (
           <>
