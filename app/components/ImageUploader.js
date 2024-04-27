@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import CloudinaryUploadWidget from './cloudinaryUploadWidget';
 import axios from 'axios';
-function ImageUploader({userEmail}) {
+function ImageUploader({userEmail,uploadType}) {
     const [selectedFile, setSelectedFile] = useState(null);
     const [public_id , setPublicId] = useState('')
     const [userEmailLocal, setUserEmailLocal] = useState(userEmail)
@@ -23,10 +23,10 @@ function ImageUploader({userEmail}) {
 
     // on upload i need a database entry 
     function onUpload(imageId) {
-      axios.post(`${process.env.NEXT_PUBLIC_BACKENDURL}/upload-new-image` , {userEmail: userEmailLocal, imageId:imageId, imageType: 'businessProfilePhoto'}).then((console.log(userEmailLocal,imageId)))
+      axios.post(`${process.env.NEXT_PUBLIC_BACKENDURL}/upload-new-image` , {userEmail: userEmailLocal, imageId:imageId, imageType: uploadType}).then((console.log(userEmailLocal,imageId)))
     }
   return (
-    <div className='p-2 flex justify-center'>
+    <div className='p-2 flex justify-center z-0'>
 
         <CloudinaryUploadWidget uwConfig={uwConfig} setPublicId={setPublicId} onUpload={onUpload}/>
     </div>

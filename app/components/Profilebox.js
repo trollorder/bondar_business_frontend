@@ -6,19 +6,11 @@ import CloudinaryUploadWidget from './cloudinaryUploadWidget';
 import ImageUploader from './ImageUploader';
 import axios from 'axios';
 
-const ProfileBox = ({ editMode, toggleEditMode, businessName, businessAddress, retailType, retailSubtype, priceRange }) => {
+const ProfileBox = ({userEmail, editMode, toggleEditMode, businessName, businessAddress, retailType, retailSubtype, priceRange }) => {
   const [newRetailType, setNewRetailType] = useState(retailType);
   const [newRetailSubtype, setNewRetailSubtype] = useState(retailSubtype);
   const [newPriceRange, setNewPriceRange] = useState(priceRange);
-  const [userEmail, setUserEmail] = useState(
-    () => {
-      if (typeof window !== 'undefined' && window.localStorage) {
-        return localStorage.getItem('userEmail') || 'NoEmail';
-      } else {
-        return 'NoEmail';
-      }
-    }
-  )
+  
   const [profileImgUrl, setProfileImgUrl] = useState(null)
   const handleRetailTypeChange = (event) => {
     setNewRetailType(event.target.value);
@@ -75,12 +67,12 @@ const ProfileBox = ({ editMode, toggleEditMode, businessName, businessAddress, r
       <div>
         {editMode ? (
           <div>
-            <ImageUploader userEmail={userEmail}/>
+            <ImageUploader userEmail={userEmail} uploadType={"businessProfilePhoto"}/>
             <div className='flex w-full justify-center space-x-2'>
               <Select className='w-1/3' value={newRetailType} onChange={handleRetailTypeChange}>
-                <MenuItem value="Type 1">Type 1</MenuItem>
-                <MenuItem value="Type 2">Type 2</MenuItem>
-                <MenuItem value="Type 3">Type 3</MenuItem>
+                <MenuItem value="Retail">Retail</MenuItem>
+                <MenuItem value="Event">Event</MenuItem>
+                <MenuItem value="Sports">Sports</MenuItem>
               </Select><br />
               <Select className='w-1/3' value={newRetailSubtype} onChange={handleRetailSubtypeChange}>
                 <MenuItem value="Subtype 1">Subtype 1</MenuItem>
