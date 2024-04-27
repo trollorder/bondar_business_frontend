@@ -1,16 +1,18 @@
-import * as React from 'react';
+import { useState } from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
-import { Card, CardContent } from '@mui/material';
+import { Button, Card, CardContent } from '@mui/material';
 
 const ReviewBox = ({ reviews }) => {
-  // Havent Style
+
+  const [isReadingAllReview, setIsReadingAllReview] = useState(false);
+
   return (
     <Box sx={{ border: 1, borderColor: 'black', borderRadius: '10px', textAlign: 'center', maxWidth: '400px', margin: 'auto', padding: '20px' }}>
-      <Typography variant="h2" style={{ textAlign: 'center' }}>
+      <Typography variant="h5" style={{ textAlign: 'center' }}>
         Reviews
       </Typography>
       <List style={{ listStyle: 'none', padding: 0 }}>
@@ -26,6 +28,7 @@ const ReviewBox = ({ reviews }) => {
           </ListItem>
         ))}
       </List>
+      <Button variant='outlined' color='success' onClick={() => setIsReadingAllReview(true)}>Read All Reviews</Button>
     </Box>
   );
 };

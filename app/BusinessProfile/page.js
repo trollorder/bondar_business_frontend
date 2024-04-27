@@ -80,17 +80,33 @@ const BusinessProfilePage = () => {
     setRefresh(!refresh)
   }
 
+  function handleSaveProfile(editedDict){
+    console.log(editedDict)
+    axios.put(`${process.env.NEXT_PUBLIC_BACKENDURL}/update-business-user-details` ,{
+      businessId:editedDict._id , 
+      companyPriceLevel:editedDict.companyPriceLevel, 
+      companyType:editedDict.companyType, 
+      companySubType :editedDict.companySubType
+    })
+    .then((response) =>{
+      console.log(response)
+    })
+    .catch((error) =>{
+      console.log(error)
+    })
+  }
+
   return (
     <div className='py-20'>
-      <TopHeader businessName={"Cafe Lincoln"} />
+      {userDict && <TopHeader businessName={userDict.companyName} />}
 
-      <ProfileBox editMode={editMode} userEmail={userEmail} toggleEditMode={toggleEditMode} businessAddress={"1626 Kains"} businessName={"Cafe Lelia"} />
+      <ProfileBox editMode={editMode} userEmail={userEmail} toggleEditMode={toggleEditMode} businessDetails={userDict} handleSaveProfile={handleSaveProfile}/>
 
       {generalMediaUrls && <MediaBox key={refresh}  userEmail={userEmail} editMode={editMode} toggleEditMode={toggleEditMode} generalMediaUrls={generalMediaUrls} onDeleteImage={onDeleteImage} />}
 
-      {reviews && <ReviewBox key={refresh} reviews = {reviews} />}
+      {reviews && <ReviewBox  reviews = {reviews} />}
 
-      <LoyaltyBox />
+      <LoyaltyBox/>
       
       <SimpleBottomNavigation />
     </div>
