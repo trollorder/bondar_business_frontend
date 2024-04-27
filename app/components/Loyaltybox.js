@@ -1,13 +1,14 @@
 // LoyaltyBox.js
 import React from 'react';
-import { Box } from '@mui/material';
+import { Box, Button, Typography} from '@mui/material';
 
 const LoyaltyBox = () => {
   return (
-    <Box sx={{ border: 1, borderColor: 'black', borderRadius: '10px', textAlign: 'center', maxWidth: '400px', margin: 'auto', padding: '20px' }}>
+    <Box sx={{ border: 1, borderColor: 'black', borderRadius: '10px', textAlign: 'center', maxWidth: '400px', margin: 'auto', padding: '20px' }} classNam>
 
-      <h2>Loyalty Rewards</h2>
-      <p>Learn more about our loyalty program and rewards!</p>
+      <Typography variant='h5'>Loyalty Rewards</Typography>
+      <Typography variant='body2'>Learn more about our loyalty program and rewards!</Typography>
+      <Button type='small' variant='contained' >Explore Loyalty Programmes</Button>
     </Box>
   );
 };

@@ -4,15 +4,27 @@ import Login from '../components/Login'
 import { toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 import { useRouter } from 'next/navigation'
+import axios from 'axios';
 
 const page = () => {
     const router =  useRouter()
-    function onSubmitForm(){
-        toast.success('Account Created')
-        router.push('/Home')
+    async function onSubmitForm({userEmail,password}){
+      console.log(userEmail,password)
+      axios.post(`${process.env.NEXT_PUBLIC_BACKENDURL}/business-user-login` , {userEmail : userEmail , password : password })
+      .then((response)=>{
+        if (response.status === 200) {
+          window.localStorage.setItem('userEmail' , userEmail)
+          router.push('/BusinessProfile')
+        }
+        else{
+          toast.error('Invalid Login Credentials')
+        }
+      
+      })
     }
   return (
     <div>
+      <ToastContainer/>
         <Login  onSubmitForm={onSubmitForm}/>
     </div>
   )
