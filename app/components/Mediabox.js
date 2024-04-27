@@ -1,55 +1,40 @@
 import React from 'react';
-import { Box } from '@mui/material';
+import { Box, Button, Typography } from '@mui/material';
 import Image from 'next/image';
 import profileImag from "../../assets/logo.jpg"
+import ImageUploader from './ImageUploader';
 
-const MediaBox = ({ editMode, toggleEditMode }) => {
+const MediaBox = ({userEmail, editMode, toggleEditMode,generalMediaUrls, onDeleteImage }) => {
   return (
-    <Box sx={{ border: 1, borderColor: 'black', borderRadius: '10px', textAlign: 'center', maxWidth: '400px', margin: 'auto', padding: '20px' }}>
-
-      <h2>Media</h2>
-      <div className="media-container">
-        {/* Display media and photos */}
-        <Image src={profileImag} style={{ borderRadius: '50%', width: '100px', height: '100px' }}/>
-        <Image src={profileImag} style={{ borderRadius: '50%', width: '100px', height: '100px' }}/>
-        <Image src={profileImag} style={{ borderRadius: '50%', width: '100px', height: '100px' }}/>
-        <Image src={profileImag} style={{ borderRadius: '50%', width: '100px', height: '100px' }}/>
-        <Image src={profileImag} style={{ borderRadius: '50%', width: '100px', height: '100px'}}/>
-        {/* Add more media */}
-      </div>
-      {editMode && (
-        <button className="edit-button" onClick={toggleEditMode}>
-          Edit Media
-        </button>
+    <Box sx={{ border: 1, borderColor: 'black', borderRadius: '10px', textAlign: 'center', maxWidth: '400px', margin: 'auto', padding: '20px' }} >
+      <Typography variant='h4'>Media</Typography>
+      {generalMediaUrls.length > 0 && (
+        <div className="flex flex-1 space-x-2 overflow-x-scroll justify-center w-full z-0">
+          {generalMediaUrls.map((eachUrl) => (
+            <div className='space-y-2' >
+              <Image
+                key={eachUrl}
+                src={eachUrl}
+                width={100}
+                height={100}
+                style={{ borderRadius: '50%', width: '100px', height: '100px' }}
+                alt='generalImage'
+                onError={(error) => {
+                  console.error('Error loading image:', error);
+                }}
+              />
+              <Button variant='outlined' size='small' style={{color:'white', backgroundColor:'darkred'}} onClick={() => onDeleteImage(eachUrl)}>Delete</Button>
+            </div>
+          ))}
+        </div>
       )}
 
-      <style jsx>{`
-        .media-box {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          border: 2px solid black;
-          border-radius: 10px;
-          padding: 10px;
-        }
-
-        .media-container {
-          overflow-x: auto;
-          white-space: nowrap;
-          display: flex;
-          margin-bottom: 10px;
-        }
-
-        .edit-button {
-          cursor: pointer;
-          padding: 8px 16px;
-          background-color: #007bff;
-          color: white;
-          border: none;
-          border-radius: 5px;
-          font-size: 16px;
-        }
-      `}</style>
+      <ImageUploader userEmail={userEmail} uploadType={"generalMedia"}/>
+      {editMode && (
+        <Button className="edit-button" onClick={toggleEditMode}>
+          Save Images
+        </Button>
+      )}
     </Box>
   );
 };

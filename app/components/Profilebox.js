@@ -2,49 +2,19 @@
 import React, { useEffect, useState } from 'react';
 import { Box, Button, MenuItem, Select, Typography } from '@mui/material';
 import Image from 'next/image';
-import CloudinaryUploadWidget from './cloudinaryUploadWidget';
 import ImageUploader from './ImageUploader';
 import axios from 'axios';
 
-const ProfileBox = ({ editMode, toggleEditMode, businessName, businessAddress, retailType, retailSubtype, priceRange }) => {
-  const [newRetailType, setNewRetailType] = useState(retailType);
-  const [newRetailSubtype, setNewRetailSubtype] = useState(retailSubtype);
-  const [newPriceRange, setNewPriceRange] = useState(priceRange);
-  const [userEmail, setUserEmail] = useState(
-    () => {
-      if (typeof window !== 'undefined' && window.localStorage) {
-        return localStorage.getItem('userEmail') || 'NoEmail';
-      } else {
-        return 'NoEmail';
-      }
-    }
-  )
+const ProfileBox = ({userEmail, editMode, toggleEditMode, businessDetails, handleSaveProfile }) => {
+  const localDict = {...businessDetails}
+
   const [profileImgUrl, setProfileImgUrl] = useState(null)
-  const handleRetailTypeChange = (event) => {
-    setNewRetailType(event.target.value);
-  };
-
-  const handleRetailSubtypeChange = (event) => {
-    setNewRetailSubtype(event.target.value);
-  };
-
-  const handlePriceRangeChange = (event) => {
-    setNewPriceRange(event.target.value);
-  };
-
-  const handleSaveProfile = () => {
-    // Save the profile details here, for now just toggle edit mode
-    toggleEditMode();
-    // Update the state variables with the new values
-    setNewRetailType(retailType);
-    setNewRetailSubtype(retailSubtype);
-    setNewPriceRange(priceRange);
-  };
-
   useEffect(()=>{
-    axios.get(`${process.env.NEXT_PUBLIC_BACKENDURL}/get-businessuser-image-by-type` , {params:{userEmail:userEmail, imageType: 'businessProfilePhoto'}})
+    axios.get(`${process.env.NEXT_PUBLIC_BACKENDURL}/get-current-business-user-profile-img` , {params:{userEmail:userEmail}})
     .then((response)=>{
-      setProfileImgUrl(`${process.env.NEXT_PUBLIC_CLOUDINARY_DISPLAY_URL}/${response.data.imageList[0]}`)
+      const url = `${process.env.NEXT_PUBLIC_CLOUDINARY_DISPLAY_URL}/${response.data.imageUrl}`
+      setProfileImgUrl(url)
+      console.log(url)
     })
     .catch((err)=>console.log(err))
   },[])
@@ -57,11 +27,11 @@ const ProfileBox = ({ editMode, toggleEditMode, businessName, businessAddress, r
         {profileImgUrl && <Image src={profileImgUrl} alt="Profile Picture" width={100} height={100} style={{ borderRadius: '50%', width: '100px', height: '100px' }}  />}
         </div>
         <div>
-          <Typography variant="h4">{businessName}</Typography>
-          <Typography variant="body1">{businessAddress}</Typography>
+          <Typography variant="h5">{}</Typography>
+          <Typography variant="body1">{}</Typography>
         </div>
         {editMode ? (
-          <Button onClick={handleSaveProfile} variant="outlined">
+          <Button onClick={handleSaveProfile(localDict)} variant="outlined">
             Save Profile
           </Button>
         ) : (
@@ -73,35 +43,37 @@ const ProfileBox = ({ editMode, toggleEditMode, businessName, businessAddress, r
       <div>
         {editMode ? (
           <div>
-            <ImageUploader userEmail={userEmail}/>
-            <Select value={newRetailType} onChange={handleRetailTypeChange}>
-              <MenuItem value="Type 1">Type 1</MenuItem>
-              <MenuItem value="Type 2">Type 2</MenuItem>
-              <MenuItem value="Type 3">Type 3</MenuItem>
-            </Select><br />
-            <Select value={newRetailSubtype} onChange={handleRetailSubtypeChange}>
-              <MenuItem value="Subtype 1">Subtype 1</MenuItem>
-              <MenuItem value="Subtype 2">Subtype 2</MenuItem>
-              <MenuItem value="Subtype 3">Subtype 3</MenuItem>
-            </Select><br />
-            <Select value={newPriceRange} onChange={handlePriceRangeChange}>
-              <MenuItem value="Low">$</MenuItem>
-              <MenuItem value="Medium">$$</MenuItem>
-              <MenuItem value="High">$$$</MenuItem>
-            </Select>
-          </div>
+            <ImageUploader userEmail={userEmail} uploadType={"businessProfilePhoto"}/>
+            <div className='flex w-full justify-center space-x-2'>
+              <Select className='w-1/3' value={localDict.companyType} onChange={(e) => localDict['companyType'] = e.target.value}>
+                <MenuItem value="Retail">Retail</MenuItem>
+                <MenuItem value="Event">Event</MenuItem>
+                <MenuItem value="Sports">Sports</MenuItem>
+              </Select><br />
+              <Select className='w-1/3' value={localDict.companySubType} onChange={(e) => localDict['companySubType'] = e.target.value}>
+                <MenuItem value="Subtype 1">Subtype 1</MenuItem>
+                <MenuItem value="Subtype 2">Subtype 2</MenuItem>
+                <MenuItem value="Subtype 3">Subtype 3</MenuItem>
+              </Select><br />
+              <Select  className='w-1/3' value={localDict.companyCostLevel} onChange={(e) => localDict['companyCostLevel'] = e.target.value}>
+                <MenuItem value="$">$</MenuItem>
+                <MenuItem value="$$">$$</MenuItem>
+                <MenuItem value="$$$">$$$</MenuItem>
+              </Select>
+            </div>
+          </div>  
         ) : (
-          <>
+          <div className='flex'>
             <Typography variant="body1">
-              Retail Type: {newRetailType}
+              Company Type: {localDict.companyType}
             </Typography>
             <Typography variant="body1">
-              Retail Subtype: {newRetailSubtype}
+              Company Subtype: {localDict.companySubType}
             </Typography>
             <Typography variant="body1">
-              Price Range: {newPriceRange}
+              Price Range: {localDict.companyCostLevel}
             </Typography>
-          </>
+          </div>
         )}
       </div>
     </Box>
