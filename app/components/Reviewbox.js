@@ -3,15 +3,15 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
-import ListItemText from '@mui/material/ListItemText';
 import { Button, Card, CardContent } from '@mui/material';
+import { useRouter } from 'next/navigation';
 
-const ReviewBox = ({ reviews }) => {
+const ReviewBox = ({ reviews }) => {  
+  const router = useRouter();
 
-  const [isReadingAllReview, setIsReadingAllReview] = useState(false);
 
   return (
-    <Box sx={{ border: 1, borderColor: 'black', borderRadius: '10px', textAlign: 'center', maxWidth: '400px', margin: 'auto', padding: '20px' }}>
+    <Box sx={{ borderRadius: '10px', textAlign: 'center', maxWidth: '400px', margin: 'auto', padding: '20px' }}>
       <Typography variant="h5" style={{ textAlign: 'center' }}>
         Reviews
       </Typography>
@@ -28,7 +28,7 @@ const ReviewBox = ({ reviews }) => {
           </ListItem>
         ))}
       </List>
-      <Button variant='outlined' color='success' onClick={() => setIsReadingAllReview(true)}>Read All Reviews</Button>
+      <Button variant='outlined' color='success' onClick={() => router.push('/Reviews')}>Read All Reviews</Button>
     </Box>
   );
 };
