@@ -85,6 +85,7 @@ const BusinessProfilePage = () => {
     })
     .then((response) =>{
       console.log(response)
+      setRefresh(!refresh)
     })
     .catch((error) =>{
       console.log(error)
