@@ -18,24 +18,38 @@ const Packagebox = () => {
       }
     }
   )
-  const [packageDataID, setPackageDataID] = useState(null);
+  const [packageDataID, setPackageDataID] = useState('');
   const [packagePrice, setPackagePrice] = useState(null)
 
   useEffect(()=>{
     console.log(userEmail)
     axios.get(`${process.env.NEXT_PUBLIC_BACKENDURL}/get-business-user-details` , {params:{userEmail:userEmail}})
     .then((response)=>{
-      setPackageDataID(response.data['currentPackageId']);
+      console.log(response.data.currentPackageId)
+      console.log(typeof response.data.currentPackageId)
+      setPackageDataID(response.data.currentPackageId);
+      console.log(packageDataID)
     })
     .catch((err)=>console.log(err))
-    axios.get(`${process.env.NEXT_PUBLIC_BACKENDURL}/all-catalog-items`)
-    .then((response)=>{
-      const packageObject = response.mongoDbObjects.find(obj => obj.squareCatalogObjectId === packageDataID);
-      setPackagePrice(packageObject["price"])
-      console.log(packageObject)
-    })
-
   },[])
+
+  useEffect(() => {
+    console.log(packageDataID); // This will log the updated value when packageDataID changes
+    axios.get(`${process.env.NEXT_PUBLIC_BACKENDURL}/all-catalog-items`)
+    .then((response) => {
+      const mongoDbObjects = response.data.mongoDbObjects;
+      const packageObject = mongoDbObjects.find(obj => obj._id === packageDataID);
+      if (packageObject) {
+        setPackagePrice(packageObject.price);
+        console.log(packageObject);
+      } else {
+        console.log("Package not found");
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+  }, [packageDataID]);
   
 
   return (
@@ -43,9 +57,7 @@ const Packagebox = () => {
         <div>Current Retainer Package</div>
         <div style={{ display: 'flex', alignItems: 'center' }}>  
             <Image src={profileImag} style={{ borderRadius: '50%', width: '100px', height: '100px' }}/>
-          {setPackagePrice && <div>
-              {setPackagePrice}
-          </div>}
+              <div>${packagePrice}/month</div>
             <Button>
                 Upgrade
             </Button>
