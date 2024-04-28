@@ -5,16 +5,13 @@ import Image from 'next/image';
 import ImageUploader from './ImageUploader';
 import axios from 'axios';
 
-const ProfileBox = ({userEmail, editMode, toggleEditMode, businessDetails, handleSaveProfile }) => {
-  const localDict = {...businessDetails}
-
+const ProfileBox = ({userEmail, editMode, toggleEditMode, businessDetails, setBusinessDetails, handleSaveProfile }) => {
   const [profileImgUrl, setProfileImgUrl] = useState(null)
   useEffect(()=>{
     axios.get(`${process.env.NEXT_PUBLIC_BACKENDURL}/get-current-business-user-profile-img` , {params:{userEmail:userEmail}})
     .then((response)=>{
       const url = `${process.env.NEXT_PUBLIC_CLOUDINARY_DISPLAY_URL}/${response.data.imageUrl}`
       setProfileImgUrl(url)
-      console.log(url)
     })
     .catch((err)=>console.log(err))
   },[])
@@ -31,7 +28,7 @@ const ProfileBox = ({userEmail, editMode, toggleEditMode, businessDetails, handl
           <Typography variant="body1">{}</Typography>
         </div>
         {editMode ? (
-          <Button onClick={handleSaveProfile(localDict)} variant="outlined">
+          <Button onClick={() => handleSaveProfile()} variant="outlined">
             Save Profile
           </Button>
         ) : (
@@ -40,22 +37,22 @@ const ProfileBox = ({userEmail, editMode, toggleEditMode, businessDetails, handl
           </Button>
         )}
       </div>
-      <div>
+      {businessDetails && <div>
         {editMode ? (
           <div>
             <ImageUploader userEmail={userEmail} uploadType={"businessProfilePhoto"}/>
             <div className='flex w-full justify-center space-x-2'>
-              <Select className='w-1/3' value={localDict.companyType} onChange={(e) => localDict['companyType'] = e.target.value}>
+              <Select className='w-1/3' value={businessDetails.companyMajorType} onChange={(e) => setBusinessDetails({...businessDetails,companyMajorType:e.target.value})}>
                 <MenuItem value="Retail">Retail</MenuItem>
                 <MenuItem value="Event">Event</MenuItem>
                 <MenuItem value="Sports">Sports</MenuItem>
               </Select><br />
-              <Select className='w-1/3' value={localDict.companySubType} onChange={(e) => localDict['companySubType'] = e.target.value}>
+              <Select className='w-1/3' value={businessDetails.companyMinorType} onChange={(e) => setBusinessDetails({...businessDetails,companyMinorType:e.target.value})}>
                 <MenuItem value="Subtype 1">Subtype 1</MenuItem>
                 <MenuItem value="Subtype 2">Subtype 2</MenuItem>
                 <MenuItem value="Subtype 3">Subtype 3</MenuItem>
               </Select><br />
-              <Select  className='w-1/3' value={localDict.companyCostLevel} onChange={(e) => localDict['companyCostLevel'] = e.target.value}>
+              <Select  className='w-1/3' value={businessDetails.companyPriceLevel} onChange={(e) => setBusinessDetails({...businessDetails,companyPriceLevel:e.target.value})}>
                 <MenuItem value="$">$</MenuItem>
                 <MenuItem value="$$">$$</MenuItem>
                 <MenuItem value="$$$">$$$</MenuItem>
@@ -65,17 +62,17 @@ const ProfileBox = ({userEmail, editMode, toggleEditMode, businessDetails, handl
         ) : (
           <div className='flex'>
             <Typography variant="body1">
-              Company Type: {localDict.companyType}
+              Company Type: {businessDetails.companyMajorType}
             </Typography>
             <Typography variant="body1">
-              Company Subtype: {localDict.companySubType}
+              Company Subtype: {businessDetails.companyMinorType}
             </Typography>
             <Typography variant="body1">
-              Price Range: {localDict.companyCostLevel}
+              Price Range: {businessDetails .companyPriceLevel}
             </Typography>
           </div>
         )}
-      </div>
+      </div>}
     </Box>
   );
 };
