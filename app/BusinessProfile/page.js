@@ -30,10 +30,6 @@ const BusinessProfilePage = () => {
     setEditMode(!editMode);
   };
 
-  function uploadGeneralMediaPhotos() {
-
-  }
-
   useEffect(()=>{
     axios.get(`${process.env.NEXT_PUBLIC_BACKENDURL}/get-business-user-details` , {params:{userEmail : userEmail}})
     .then( (response) =>{
@@ -80,13 +76,12 @@ const BusinessProfilePage = () => {
     setRefresh(!refresh)
   }
 
-  function handleSaveProfile(editedDict){
-    console.log(editedDict)
+  function handleSaveProfile(){
     axios.put(`${process.env.NEXT_PUBLIC_BACKENDURL}/update-business-user-details` ,{
-      businessId:editedDict._id , 
-      companyPriceLevel:editedDict.companyPriceLevel, 
-      companyType:editedDict.companyType, 
-      companySubType :editedDict.companySubType
+      businessId:userDict._id , 
+      companyPriceLevel:userDict.companyPriceLevel, 
+      companyMinorType:userDict.companyMinorType, 
+      companyMajorType :userDict.companyMajorType
     })
     .then((response) =>{
       console.log(response)
@@ -97,12 +92,12 @@ const BusinessProfilePage = () => {
   }
 
   return (
-    <div className='py-20'>
+    <div className='py-20' key={refresh}>
       {userDict && <TopHeader businessName={userDict.companyName} />}
 
-      <ProfileBox editMode={editMode} userEmail={userEmail} toggleEditMode={toggleEditMode} businessDetails={userDict} handleSaveProfile={handleSaveProfile}/>
+      <ProfileBox key={refresh} editMode={editMode} userEmail={userEmail} toggleEditMode={toggleEditMode} businessDetails={userDict} handleSaveProfile={handleSaveProfile} setBusinessDetails={setUserDict}/>
 
-      {generalMediaUrls && <MediaBox key={refresh}  userEmail={userEmail} editMode={editMode} toggleEditMode={toggleEditMode} generalMediaUrls={generalMediaUrls} onDeleteImage={onDeleteImage} />}
+      {generalMediaUrls && <MediaBox userEmail={userEmail} editMode={editMode} toggleEditMode={toggleEditMode} generalMediaUrls={generalMediaUrls} onDeleteImage={onDeleteImage} />}
 
       {reviews && <ReviewBox  reviews = {reviews} />}
 

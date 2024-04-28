@@ -23,13 +23,13 @@ const MediaBox = ({userEmail, editMode, toggleEditMode,generalMediaUrls, onDelet
                   console.error('Error loading image:', error);
                 }}
               />
-              <Button variant='outlined' size='small' style={{color:'white', backgroundColor:'darkred'}} onClick={() => onDeleteImage(eachUrl)}>Delete</Button>
+              {editMode && <Button variant='outlined' size='small' style={{color:'white', backgroundColor:'darkred'}} onClick={() => onDeleteImage(eachUrl)}>Delete</Button>}
             </div>
           ))}
         </div>
       )}
 
-      <ImageUploader userEmail={userEmail} uploadType={"generalMedia"}/>
+      {editMode && <ImageUploader userEmail={userEmail} uploadType={"generalMedia"}/>}
       {editMode && (
         <Button className="edit-button" onClick={toggleEditMode}>
           Save Images

@@ -28,7 +28,7 @@ export default function TopHeader({ businessName }) {
     <header style={{ width: '100%', position: 'fixed', top: 0, backgroundColor: '#b82a66', zIndex: 1000 }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px 20px' }}>
         <div>
-          <div style={{ backgroundColor: 'white', borderRadius: '50%', padding: '5px', display: 'inline-block' }}>
+          <div className='px-4'style={{ backgroundColor: 'white', borderRadius: '50%', padding: '5px', display: 'inline-block' }}>
             <MenuIcon onClick={handleClick} style={{ cursor: 'pointer', color: 'pink' }} />
           </div>
           <Popover
