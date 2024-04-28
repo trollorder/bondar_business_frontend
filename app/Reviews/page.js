@@ -42,7 +42,7 @@ const page = () => {
 
     return (
         <div className='py-20'>
-          <TopHeader/>
+          {userDict && <TopHeader businessName={userDict.companyName}/>}
             {reviews && <ReviewBox reviews={reviews}/>}
           <SimpleBottomNavigation/>
         </div>
