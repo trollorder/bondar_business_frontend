@@ -5,11 +5,14 @@ import TopHeader from '../components/Topheader';
 import ProfileBox from '../components/Profilebox.js';
 import MediaBox from '../components/Mediabox';
 import ReviewBox from '../components/Reviewbox';
-import LoyaltyBox from '../components/Loyaltybox';
 import axios from 'axios';
+import { Box, Button, Typography} from '@mui/material';
+import { useRouter } from 'next/navigation';
+
 
 const BusinessProfilePage = () => {
   // State for managing edit mode
+  const router = useRouter();
   const [editMode, setEditMode] = useState(false);
   const [userEmail, setUserEmail] = useState(
     () => {
@@ -103,8 +106,11 @@ const BusinessProfilePage = () => {
 
       {reviews && <ReviewBox  reviews = {reviews} />}
 
-      <LoyaltyBox/>
-      
+      <Box sx={{ border: 1, borderColor: 'black', borderRadius: '10px', textAlign: 'center', maxWidth: '400px', margin: 'auto', padding: '20px' }} classNam>
+        <Typography variant='h5'>Loyalty Rewards</Typography>
+        <Typography variant='body2'>Learn more about our loyalty program and rewards!</Typography>
+        <Button type='small' variant='contained' onClick={() => router.push('/LoyaltyProgramme')} >Explore Loyalty Programmes</Button>
+      </Box>
       <SimpleBottomNavigation />
     </div>
   );
