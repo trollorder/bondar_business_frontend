@@ -9,6 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@canvasjs/charts": "^3.8.4",
+    "@canvasjs/react-charts": "^1.0.2",
     "@cloudinary/react": "^1.13.0",
     "@cloudinary/url-gen": "^1.19.0",
     "@emotion/react": "^11.11.4",
