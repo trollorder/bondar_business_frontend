@@ -65,7 +65,7 @@ export default function TopHeader({ businessName }) {
 
           </Popover>
         </div>
-        <div style={{ fontWeight: 'bold', color: 'white', fontSize: '25px' }}>{businessName}</div>
+        {/* <div style={{ fontWeight: 'bold', color: 'white', fontSize: '25px' }}>{businessName}</div> */}
       </div>
     </header>
   );

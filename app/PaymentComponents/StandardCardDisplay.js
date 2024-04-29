@@ -3,7 +3,7 @@ import { Box, Typography, Card, CardContent, CardHeader, IconButton } from '@mui
 import DeleteIcon from '@mui/icons-material/Delete';
 import CreditCardIcon from '@mui/icons-material/CreditCard';
 import EditIcon from '@mui/icons-material/Edit';
-const StandardCardDetails = ({ card , isDisplay }) => {
+const StandardCardDetails = ({ card , isDisplay, onDeleteCard }) => {
     const { cardBrand, last4, expMonth, expYear, cardholderName } = card;
     const formattedExpiry = `${expMonth}/${expYear.slice(2)}`;
 
@@ -30,7 +30,7 @@ const StandardCardDetails = ({ card , isDisplay }) => {
             <IconButton>
                 <EditIcon style={{color:'green'}}/>
             </IconButton>
-            <IconButton aria-label="Delete">
+            <IconButton aria-label="Delete" onClick={() => onDeleteCard(card.id)}>
                 <DeleteIcon style={{color:'red'}}/>
             </IconButton>
             </div>}

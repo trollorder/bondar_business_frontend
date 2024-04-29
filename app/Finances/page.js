@@ -96,13 +96,25 @@ function Finances(){
     function onClose(){
         setIsInputingNewCard(false)
     }
+
+    function onDeleteCard(cardId){
+        axios.delete(`${process.env.NEXT_PUBLIC_BACKENDURL}/delete-card` ,{ params:{
+            cardId : cardId,
+        }})
+        .then((response)=>{
+            router.refresh();
+        })
+        .catch((err)=>{
+            console.log(err)
+        })
+    }
     return(
         <div className='py-20'>
             
             {userDict && <TopHeader businessName={userDict.companyName}/>}
 
             <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-                <Tabs value={activeTab} onChange={handleChange} aria-label="basic tabs example">
+                <Tabs value={activeTab} onChange={handleChange}>
                     <Tab label="Invoices" value="Invoices" />
                     <Tab label="Orders" value="Orders" />
                     <Tab label="Cards" value="Cards" />
@@ -131,7 +143,7 @@ function Finances(){
                 <Typography variant='h4'>Cards</Typography>
                 <div className='flex flex-col space-y-2 p-2'>
                     {cards && cards.map((eachCard) =>(
-                        <StandardCardDetails card={eachCard} key={eachCard.id} />
+                        <StandardCardDetails card={eachCard} key={eachCard.id} onDeleteCard={onDeleteCard} />
                     ))}
                 </div>
                 <Button variant='contained' color='success' onClick={() => handleEnterNewCard()}>Enter New Card</Button>

@@ -1,5 +1,5 @@
 'use client'
-import React from 'react'
+import React, { useCallback } from 'react'
 import { Box, Typography, Select, MenuItem, Button, Tab, Tabs, CardContent, Card , ListItem, ListItemText} from '@mui/material'
 import { useState, useEffect } from 'react'
 import TopHeader from '../components/Topheader'
@@ -28,8 +28,11 @@ const page = () => {
     const [userDict ,setUserDict] = useState(null)
     const [fullPackageObjData , setFullPackageObjData] = useState(null)
     const [activeTab, setActiveTab] = useState();
+    const [orderId, setOrderId] = useState(null)
     const handleChange = (event, newActiveTab) => {
       setActiveTab(newActiveTab);
+      // Potential Break but is to persist to next page
+      window.localStorage.setItem('selectedCard' , newActiveTab)
     };
     useEffect(()=>{
         axios.get(`${process.env.NEXT_PUBLIC_BACKENDURL}/get-business-user-details` , {params:{userEmail : userEmail}})
@@ -59,10 +62,6 @@ const page = () => {
         console.log(error);
       });
     }
-
-    const toggleDropdown = () => {
-        setIsOpen(!isOpen);
-    };
     function getCards(businessId) {
         axios.get(`${process.env.NEXT_PUBLIC_BACKENDURL}/list-cards` , {params:{squareUserId:businessId}})
         .then((response) =>{
@@ -72,19 +71,95 @@ const page = () => {
             console.log(err)
         })
     }
-    function userSelected(packageMongoDbId){
-      const mongoObj = fullPackageObjData.mongoDbObjects.find((eachObj) => eachObj.id === packageMongoDbId)
-      const squareObj = fullPackageObjData.squareObjects.find((eachObj) => eachObj.id === mongoObj.squareCatalogObjectId)
-      const selectedCatalogObj = {...squareObj,...mongoObj}
-      console.log(selectedCatalogObj)
-    }
+
     function handleSelectChange(e){
-      console.log(e.target.value)
+      console.log('square value : ' , e.target.value)
       setSelectedCatalogObjSquareId(e.target.value)
+      // Potential Breaking Point
+      window.localStorage.setItem('selectedCatalogObjSquarIdForPurchase' , e.target.value)
     }
 
-    function handleSelectCard(cardId){
-      return
+    async function confirmOrder () {
+      // To confirm order you first needto create an order item
+      const orderId = await createNewOrder();
+      console.log(orderId)
+      const invoiceCreated = await createNewInvoice(orderId); //latestPaidInvoiceId setted here
+      const paymentCreated = await createNewPayment(orderId);
+      const updatedUserDict = await updateUserDict(selectedCatalogObjSquareId);
+      console.log('Full Order Completed')
+
+    }
+
+    async function createNewOrder() {
+      const squareUserId = userDict.squareUserId;
+      const priceMoney = fullPackageObjData.mongoDbObjects.filter((eachobj) => eachobj.squareCatalogObjectId === selectedCatalogObjSquareId)[0].price
+      const catalogObjectName = fullPackageObjData.squareObjects.filter((eachobj) => eachobj.id === selectedCatalogObjSquareId)[0].subscriptionPlanData.name
+      const response  = await axios.post(`${process.env.NEXT_PUBLIC_BACKENDURL}/create-new-order` , {
+        squareUserId : squareUserId ,
+        priceMoney: priceMoney,
+        catalogObjectName: catalogObjectName 
+      })
+      .then((response) =>{
+        const orderId = response.data.orderId
+        console.log('order id ' , orderId)
+        setOrderId(orderId)
+        return orderId
+      })
+      .catch((err)=>{
+          console.log(err)
+      })
+      return response
+    }
+
+    // Create Payment after order
+    async function createNewPayment(orderId){
+      const squareUserId = userDict.squareUserId;
+      const paymentAmount = fullPackageObjData.mongoDbObjects.filter((eachobj) => eachobj.squareCatalogObjectId === selectedCatalogObjSquareId)[0].price
+      await axios.post(`${process.env.NEXT_PUBLIC_BACKENDURL}/create-user-payment` , {
+        squareUserId : squareUserId ,
+        orderId: orderId,
+        paymentAmount: paymentAmount 
+      })
+      .then((response) =>{
+        console.log('payment created : ' , response.data)
+        createNewInvoice(orderId)
+        router.push('/BusinessUpgradeConfirmation')        
+      })
+      .catch((err)=>{
+          console.log(err)
+      })
+    }
+
+    // CreateInvoice After Payment
+    async function createNewInvoice(orderId){
+      const squareUserId = userDict.squareUserId;
+      const response = await axios.post(`${process.env.NEXT_PUBLIC_BACKENDURL}/create-user-invoice` , {
+        squareUserId : squareUserId ,
+        orderId: orderId,
+      })
+      .then((response) =>{
+          console.log('invoice created : ' , response.data)
+          window.localStorage.setItem('latestPayedInvoiceId' , response.data.invoiceId)
+          return response.data.invoiceId
+      })
+      .catch((err)=>{
+          console.log(err)
+      })
+      return response
+    }
+
+    async function updateUserDict(){
+      const mongoDbId = fullPackageObjData.mongoDbObjects.filter((eachObj) => eachObj.squareCatalogObjectId === selectedCatalogObjSquareId)[0].id
+      const response = await axios.post(`${process.env.NEXT_PUBLIC_BACKENDURL}/update-user-package` , {
+        userEmail : userEmail ,
+        currentPackageId: mongoDbId,
+      })
+      .then((response) =>{
+          console.log(response.data)
+      })
+      .catch((err)=>{
+          console.log(err)
+      })
     }
 
   return (
@@ -97,7 +172,7 @@ const page = () => {
             <div style={{ display: 'flex', alignItems: 'center' }}>
               {fullPackageObjData && selectedCatalogObjSquareId && 
                 <Select className='w-full' value={selectedCatalogObjSquareId}  onChange={(e)=> handleSelectChange(e)}>
-                  {fullPackageObjData.mongoDbObjects.map((eachPackage) => (
+                  {fullPackageObjData.mongoDbObjects.sort((objA, objB) => objA.price <= objB.price).map((eachPackage) => (
                     <MenuItem value={eachPackage.squareCatalogObjectId}>{eachPackage.itemName}</MenuItem>
                   ))}
                 </Select>
@@ -125,7 +200,7 @@ const page = () => {
                   <div>
                     {activeTab === eachCard.id && <div>
                       <StandardCardDetails card={eachCard} isDisplay={true} key={eachCard.id} />
-                      <Button className='self-center' variant='contained' color='success' onClick={() => handleSelectCard(eachCard.id)}>Select Card and Pay</Button>
+                      {/* <Button className='self-center' variant='contained' color='success' onClick={() => handleSelectCard(eachCard.id)}>Select Card and Pay</Button> */}
                     </div>
                     }
                   </div>
@@ -136,7 +211,8 @@ const page = () => {
             }
 
             {/* Don't Show if user no change selection from current plan */}
-            {selectedCatalogObjSquareId !== currentPackageId && <Button onClick={() => router.push('/BusinessUpgradeConfirmation')} variant='contained' color='success'>Confirm Order and Pay Now</Button>}
+            {/* activetab is also a signifier if card is selected */}
+            {selectedCatalogObjSquareId !== currentPackageId && activeTab && <Button onClick={() => confirmOrder()} variant='contained' color='success'>Confirm Order and Pay Now</Button>}
         </Box>
 
         

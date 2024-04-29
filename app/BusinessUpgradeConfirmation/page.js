@@ -20,6 +20,7 @@ const page = () => {
       }
     )
   const [userDict ,setUserDict] = useState(null)
+  const [generatedInvoice , setGeneratedInvoice] = useState(null)
   useEffect(()=>{
       axios.get(`${process.env.NEXT_PUBLIC_BACKENDURL}/get-business-user-details` , {params:{userEmail : userEmail}})
       .then( (response) =>{
@@ -39,13 +40,16 @@ const page = () => {
     .catch((err)=>{
         console.log(err)
     })
-}
+  }
   return (
     <div className='py-20'>
         <TopHeader />
-        {invoices && <StandardInvoice invoice={invoices[0]}/>}
+        {/* So here we will generate the invoice for the order */}
+
+        {generatedInvoice && <StandardInvoice invoice={generatedInvoice} />}
+
         <div className='w-full flex items-center justify-center'>
-         <Button variant='contained' color='success' onClick={() => router.push('/Home')}>Confirm</Button>
+         <Button variant='contained' color='success' onClick={() => router.push('/Home')}>Close Invoices</Button>
 
         </div>
         <SimpleBottomNavigation/>
