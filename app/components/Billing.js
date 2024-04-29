@@ -1,7 +1,6 @@
 import React from 'react'
 import { Box } from '@mui/material'
 import StandardCardDetails from '../PaymentComponents/StandardCardDisplay'
-import {Button} from '@mui/material'
 import { useRouter } from 'next/navigation'
 import axios from 'axios'
 const Billing = ({cardDetails, catalogObject,userDict}) => {
@@ -37,9 +36,7 @@ const Billing = ({cardDetails, catalogObject,userDict}) => {
         </div>
 
         <Box sx={{ borderRadius: '10px', maxWidth: '400px', margin: 'auto', padding: '20px' }}>
-            <StandardCardDetails card={cardDetails}/>
         </Box>
-        <Button onClick={() => router.push('/BusinessUpgradeConfirmation')}>Confirm Order and Pay Now</Button>
     </div>
   )
 }

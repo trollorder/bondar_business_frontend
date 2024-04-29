@@ -6,6 +6,8 @@ import { useEffect, useState } from 'react';
 import TopHeader from '../components/Topheader';
 import SimpleBottomNavigation from '../components/Bottomnav';
 import { useRouter } from 'next/navigation';
+import { CardContent, Card, Typography } from '@mui/material';
+import DiamondIcon from '@mui/icons-material/Diamond';
 
 const page = () => {
   const router  = useRouter();
@@ -22,49 +24,74 @@ const page = () => {
     const [currentPackageId, setCurrentPackageId] = useState(null)
     const [fullPackageObjData , setFullPackageObjData] = useState(null)
     const [packagePrice, setPackagePrice] = useState(null)
-    const [packageDataID, setPackageDataID] = useState('');
+    const [packageDataID, setPackageDataID] = useState(null);
 
     useEffect(()=>{
         axios.get(`${process.env.NEXT_PUBLIC_BACKENDURL}/get-business-user-details` , {params:{userEmail : userEmail}})
         .then( (response) =>{
           setUserDict(response.data)
           setPackageDataID(response.data.currentPackageId);
-          getPackageCatalog()
+          getPackageCatalog(response.data.currentPackageId)
         })
         .catch((error)=>{
           console.log(error)
         })
     },[])
 
-    function getPackageCatalog(){
+    function getPackageCatalog(packageDataID){
+      console.log(packageDataID)
       axios.get(`${process.env.NEXT_PUBLIC_BACKENDURL}/all-catalog-items`)
       .then((response) => {
         setFullPackageObjData(response.data)
-        console.log(response.data.mongoDbObjects)
         const mongoDbObjects = response.data.mongoDbObjects;
         const packageObject = mongoDbObjects.find(obj => obj._id === packageDataID);
+        console.log('pkg obj' , packageObject)
         if (packageObject) {
-          // this part is to get only the name
           setPackagePrice(packageObject.price);
-          console.log('current price ' , packagePrice.price)
         } 
       })
       .catch((error) => {
         console.log(error);
       });
     }
+
+    function getColorFromPrice(price) {
+      const priceRanges = {
+        0: 'black',
+        20: 'bronze',
+        50: 'silver',
+        100: 'gold',
+        200: 'DarkGreen',
+      };
+    
+      // Handle exact matches and prices above the highest range
+      if (price in priceRanges) {
+        return priceRanges[price];
+      } else if (price > 200) {
+        return 'DarkGreen'; // Use the highest color for prices exceeding the range
+      }
+    
+      // Handle prices below the lowest range (default to white)
+      return 'black';
+    }
   return (
     <div className='py-20'>
         {userDict && <TopHeader businessName={userDict.companyName}/>}
-        <div>Current Retainer Package</div>
-        {packagePrice && <div style={{ display: 'flex', alignItems: 'center' }}>  
-            <Image src={profileImag} style={{ borderRadius: '50%', width: '100px', height: '100px' }}/>
-              <div>${packagePrice}/month</div>
-            <Button onClick={() => router.push('/BusinessUpgrade')}>
+        <Card>
+          <CardContent className='flex'>
+            <DiamondIcon style={{color:getColorFromPrice(packagePrice), fontSize:80}} />
+            <div className='flex flex-col'>
+              <Typography variant='caption'>Current Package</Typography>
+              <Typography variant='body1'>{packagePrice} USD/Month</Typography>
+              <Button variant='contained' onClick={() => router.push('/BusinessUpgrade')}>
                 Upgrade
-            </Button>
-        </div>}
-        {/* <Pricingtable /> */}
+              </Button>
+            </div>
+            
+          </CardContent>
+        </Card>
+        
+        {/* Below is the Transposed Table */}
         {fullPackageObjData && <PackageComparison packageDataMongoDb={fullPackageObjData.mongoDbObjects} />}
         <SimpleBottomNavigation/>
     </div>

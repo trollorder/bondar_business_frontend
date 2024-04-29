@@ -1,14 +1,16 @@
 'use client'
 import React from 'react'
-import { Box, Typography, List, ListItem, ListItemText, Collapse, Select, MenuItem, Menu} from '@mui/material'
+import { Box, Typography, Select, MenuItem, Button, Tab, Tabs, CardContent, Card , ListItem, ListItemText} from '@mui/material'
 import { useState, useEffect } from 'react'
-import Billing from '../components/Billing';
 import TopHeader from '../components/Topheader'
 import SimpleBottomNavigation from '../components/Bottomnav'
 import axios from 'axios'
-
+import { useRouter } from 'next/navigation';
+import StandardCardDetails from '../PaymentComponents/StandardCardDisplay';
+import SelectedPlanCard from '../components/SelectedPlanDetails';
 
 const page = () => {
+    const router = useRouter();
     const [isOpen, setIsOpen] = useState(false);
     const [cards, setCards] = useState(null);
     const [userEmail, setUserEmail] = useState(
@@ -20,10 +22,15 @@ const page = () => {
           }
         }
       )
-    const [selectedCatalogObj, setSelectedCatalogObj] = useState(null)
+    const [selectedCatalogObjSquareId, setSelectedCatalogObjSquareId] = useState(null)
+    const [currentPackageId, setCurrenPackageId] = useState(null)
     const [packageId, setPackageId] = useState('')
     const [userDict ,setUserDict] = useState(null)
     const [fullPackageObjData , setFullPackageObjData] = useState(null)
+    const [activeTab, setActiveTab] = useState();
+    const handleChange = (event, newActiveTab) => {
+      setActiveTab(newActiveTab);
+    };
     useEffect(()=>{
         axios.get(`${process.env.NEXT_PUBLIC_BACKENDURL}/get-business-user-details` , {params:{userEmail : userEmail}})
         .then( (response) =>{
@@ -45,6 +52,8 @@ const page = () => {
         const packageObject = mongoDbObjects.find(obj => obj._id === localUserDict.currentPackageId);
         console.log('package obj is ' , packageObject)
         setPackageId(packageObject.squareCatalogObjectId)
+        setSelectedCatalogObjSquareId(packageObject.squareCatalogObjectId)
+        setCurrenPackageId(packageObject.squareCatalogObjectId)
       })
       .catch((error) => {
         console.log(error);
@@ -69,35 +78,67 @@ const page = () => {
       const selectedCatalogObj = {...squareObj,...mongoObj}
       console.log(selectedCatalogObj)
     }
+    function handleSelectChange(e){
+      console.log(e.target.value)
+      setSelectedCatalogObjSquareId(e.target.value)
+    }
+
+    function handleSelectCard(cardId){
+      return
+    }
 
   return (
     <div className='py-20'>
         <TopHeader />
         {/* <Packagebox /> */}
-        <Box sx={{ border: 1, borderColor: 'black', borderRadius: '10px', textAlign: 'center', maxWidth: '400px', margin: 'auto', padding: '20px' }}>
+        <Box sx={{maxWidth: '400px', margin: 'auto', padding: '20px' }}>
             
-            <Typography variant='h5'>Complete Package Upgrade Payment</Typography>
+            <Typography variant='h5'>Select A Package To Upgrade</Typography>
             <div style={{ display: 'flex', alignItems: 'center' }}>
-              {fullPackageObjData && packageId && 
-                  <Select value={fullPackageObjData.squareObjects.find((eachObj) => eachObj.id === packageId) ? fullPackageObjData.squareObjects.find((eachObj) => eachObj.id === packageId) : null } className='w-full'>
-                    {fullPackageObjData.mongoDbObjects.map((mongoDbCatalogObj)=>(
-                      <MenuItem value={mongoDbCatalogObj.squareCatalogObjectId} key={mongoDbCatalogObj.squareCatalogObjectId} onChange={(e) => {setPackageId(e.target.value);console.log(packageId)}}>{mongoDbCatalogObj.itemName}</MenuItem>
-                     ))}
+              {fullPackageObjData && selectedCatalogObjSquareId && 
+                <Select className='w-full' value={selectedCatalogObjSquareId}  onChange={(e)=> handleSelectChange(e)}>
+                  {fullPackageObjData.mongoDbObjects.map((eachPackage) => (
+                    <MenuItem value={eachPackage.squareCatalogObjectId}>{eachPackage.itemName}</MenuItem>
+                  ))}
                 </Select>
               }
             </div>
               {/* Display Package Details Here */}
-            {selectedCatalogObj && 
+            {selectedCatalogObjSquareId&& fullPackageObjData && 
               <div>
-                
+                {fullPackageObjData.mongoDbObjects.filter((eachItem) => eachItem.squareCatalogObjectId === selectedCatalogObjSquareId).map((catalogObject)=>(
+                  <SelectedPlanCard catalogObject={catalogObject}/>
+                ))}
               </div>
             }
-  
-            
-            {cards && packageId && <Billing cardDetails={cards[0]} isDisplay={false} catalogObject={selectedCatalogObj} userDict={userDict}/>}
-            
+              
+            {/* Select A Card Her */}
+            {cards && 
+              <div className='w-full overflow-x-auto shadow-xl rounded-sm'>
+                <Typography variant='caption' style={{fontWeight:'bold'}}>Choose a Card</Typography>
+                <Tabs onChange={handleChange} value={activeTab}>
+                  {cards.map((eachCard)=>(
+                    <Tab label={eachCard.last4} value={eachCard.id} />
+                  ))}
+                </Tabs>
+                {cards.map((eachCard) => (
+                  <div>
+                    {activeTab === eachCard.id && <div>
+                      <StandardCardDetails card={eachCard} isDisplay={true} key={eachCard.id} />
+                      <Button className='self-center' variant='contained' color='success' onClick={() => handleSelectCard(eachCard.id)}>Select Card and Pay</Button>
+                    </div>
+                    }
+                  </div>
+                ))}
+              </div>
+
+              
+            }
+
+            {/* Don't Show if user no change selection from current plan */}
+            {selectedCatalogObjSquareId !== currentPackageId && <Button onClick={() => router.push('/BusinessUpgradeConfirmation')} variant='contained' color='success'>Confirm Order and Pay Now</Button>}
         </Box>
-        
+
         
         <SimpleBottomNavigation/>
 

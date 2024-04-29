@@ -26,7 +26,7 @@ const StandardCardDetails = ({ card , isDisplay }) => {
                 </Typography>
                 <Typography variant="body1">{formattedExpiry}</Typography>
             </CardContent>
-            {!isDisplay === false && <div>
+            {!isDisplay === true && <div>
             <IconButton>
                 <EditIcon style={{color:'green'}}/>
             </IconButton>

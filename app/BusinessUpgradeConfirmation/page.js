@@ -31,11 +31,23 @@ const page = () => {
       console.log(error)
       })
   },[])
+  function getInvoices(businessId){
+    axios.get(`${process.env.NEXT_PUBLIC_BACKENDURL}/get-user-invoices` , {params:{squareUserId:businessId}})
+    .then((response) =>{
+        setInvoices(response.data)
+    })
+    .catch((err)=>{
+        console.log(err)
+    })
+}
   return (
     <div className='py-20'>
         <TopHeader />
         {invoices && <StandardInvoice invoice={invoices[0]}/>}
-        <Button onClick={router.push('/Home')}>Confirm</Button>
+        <div className='w-full flex items-center justify-center'>
+         <Button variant='contained' color='success' onClick={() => router.push('/Home')}>Confirm</Button>
+
+        </div>
         <SimpleBottomNavigation/>
     </div>
   )

@@ -46,19 +46,19 @@ const PackageComparison = ({ packageDataMongoDb }) => {
             <Table sx={{ minWidth: 650 }}>
             <TableHead>
                 <TableRow>
-                    <TableCell>Benefits</TableCell>
+                    <TableCell style={{fontWeight:'bold'}}>Benefits</TableCell>
                 {packageHeaders.map((header) => (
-                    <TableCell key={header}>{header}</TableCell>
+                    <TableCell key={header} style={{fontWeight:'bold'}}>{header}</TableCell>
                 ))}
                 </TableRow>
             </TableHead>
             <TableBody>
                 {
                     Benefits.map((eachBenefit) => (
-                        <TableRow>
+                        <TableRow key={eachBenefit}>
                             <TableCell>{getRowHeader(eachBenefit)}</TableCell>
                             {sortedPackageDataMongoDb.map((eachPackage) =>(
-                                <TableCell>
+                                <TableCell key={`${eachBenefit}_${eachPackage._id}`}>
                                     {typeof eachPackage[eachBenefit] === 'boolean'
                                         ? eachPackage[eachBenefit] ? 'Yes' : 'No'
                                         : eachPackage[eachBenefit]}
