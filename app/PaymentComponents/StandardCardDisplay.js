@@ -3,7 +3,7 @@ import { Box, Typography, Card, CardContent, CardHeader, IconButton } from '@mui
 import DeleteIcon from '@mui/icons-material/Delete';
 import CreditCardIcon from '@mui/icons-material/CreditCard';
 import EditIcon from '@mui/icons-material/Edit';
-const StandardCardDetails = ({ card }) => {
+const StandardCardDetails = ({ card , isDisplay }) => {
     const { cardBrand, last4, expMonth, expYear, cardholderName } = card;
     const formattedExpiry = `${expMonth}/${expYear.slice(2)}`;
 
@@ -26,12 +26,14 @@ const StandardCardDetails = ({ card }) => {
                 </Typography>
                 <Typography variant="body1">{formattedExpiry}</Typography>
             </CardContent>
+            {!isDisplay === false && <div>
             <IconButton>
                 <EditIcon style={{color:'green'}}/>
             </IconButton>
             <IconButton aria-label="Delete">
                 <DeleteIcon style={{color:'red'}}/>
             </IconButton>
+            </div>}
         </Card>
     );
 };

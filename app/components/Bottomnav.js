@@ -10,6 +10,7 @@ import WorkOutlineIcon from '@mui/icons-material/WorkOutline';
 import HomeIcon from '@mui/icons-material/Home';
 import AutoGraphIcon from '@mui/icons-material/AutoGraph';
 import { useRouter } from 'next/navigation';
+import CreditCardIcon from '@mui/icons-material/CreditCard';;
 
 export default function SimpleBottomNavigation() {
     const [value, setValue] = React.useState(0);
@@ -23,7 +24,7 @@ export default function SimpleBottomNavigation() {
           router.push('/Billing'); // Navigate to billing page
           break;
         case 1:
-          router.push('/BusinessProfile'); // Navigate to business profile page
+          router.push('/Finances'); // Navigate to business profile page
           break;
         case 2:
           router.push('/Home'); // Navigate to home page
@@ -31,6 +32,9 @@ export default function SimpleBottomNavigation() {
         case 3:
           router.push('/Analytics'); // Navigate to analytics page
           break;
+        case 4:
+          router.push('/BusinessProfile');
+          break
         default:
           break;
           
@@ -54,10 +58,11 @@ export default function SimpleBottomNavigation() {
             },
           }}
         >
-          <BottomNavigationAction label="Billing" icon={<ListIcon />} />
-          <BottomNavigationAction label="Business Profile" icon={<WorkOutlineIcon />} />
+          <BottomNavigationAction label="Current Plan" icon={<ListIcon />} />
+          <BottomNavigationAction label="Finances" icon={<CreditCardIcon />} />
           <BottomNavigationAction label="Home" icon={<HomeIcon />} />
           <BottomNavigationAction label="Analytics" icon={<AutoGraphIcon />} />
+          <BottomNavigationAction label="Business Profile" icon={<WorkOutlineIcon />} />
         </BottomNavigation>
       </Box>
     );

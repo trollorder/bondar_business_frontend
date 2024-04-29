@@ -1,19 +1,12 @@
 'use client'
-import Packagebox from '../components/Packagebox'
-import Button from '@mui/material/Button';
-import Pricingtable from '../components/Pricingtable'
-import Testing from '../components/Testing'
-
 
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { Typography } from '@mui/material';
 import TopHeader from '../components/Topheader';
 import SimpleBottomNavigation from '../components/Bottomnav';
-import { useRouter } from 'next/navigation';
+import { Typography } from '@mui/material';
 
 const page = () => {
-  const router  = useRouter();
     const [userEmail, setUserEmail] = useState(
       () => {
         if (typeof window !== 'undefined' && window.localStorage) {
@@ -36,9 +29,7 @@ const page = () => {
   return (
     <div className='py-20'>
         {userDict && <TopHeader businessName={userDict.companyName}/>}
-        <Packagebox />
-        {/* <Pricingtable /> */}
-        <Testing />
+        <Typography>Home</Typography>
         <SimpleBottomNavigation/>
     </div>
   )

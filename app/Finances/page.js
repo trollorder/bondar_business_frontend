@@ -6,7 +6,9 @@ import { useEffect, useState } from 'react';
 import StandardInvoice from '../PaymentComponents/StandardInvoice';
 import StandardCardDetails from '../PaymentComponents/StandardCardDisplay';
 import { Typography } from '@mui/material';
-function playground(){
+import TopHeader from '../components/Topheader';
+import SimpleBottomNavigation from '../components/Bottomnav';
+function Finances(){
     const [orders,setOrders] = useState(null)
     const [invoices,setInvoices] = useState(null)
     const [cards, setCards] = useState(null)
@@ -34,7 +36,7 @@ function playground(){
         })
     },[])
     function getOrders(businessId){
-        axios.get(`${process.env.NEXT_PUBLIC_BACKENDURL}/get-user-orders` , {params:{squareUserId:"businessId"}})
+        axios.get(`${process.env.NEXT_PUBLIC_BACKENDURL}/get-user-orders` , {params:{squareUserId:businessId}})
         .then((response) =>{
             setOrders(response.data)
         })
@@ -44,7 +46,7 @@ function playground(){
     }
 
     function getInvoices(businessId){
-        axios.get(`${process.env.NEXT_PUBLIC_BACKENDURL}/get-user-invoices` , {params:{squareUserId:"JR373PY7B7QHWTW02HZP2VSH80"}})
+        axios.get(`${process.env.NEXT_PUBLIC_BACKENDURL}/get-user-invoices` , {params:{squareUserId:businessId}})
         .then((response) =>{
             setInvoices(response.data)
         })
@@ -54,7 +56,7 @@ function playground(){
     }
         
     function getCards(businessId) {
-        axios.get(`${process.env.NEXT_PUBLIC_BACKENDURL}/list-cards` , {params:{squareUserId:"JR373PY7B7QHWTW02HZP2VSH80"}})
+        axios.get(`${process.env.NEXT_PUBLIC_BACKENDURL}/list-cards` , {params:{squareUserId:businessId}})
         .then((response) =>{
             setCards(response.data)
         })
@@ -63,28 +65,40 @@ function playground(){
         })
     }
     return(
-        <div>
+        <div className='py-20'>
+            {userDict && <TopHeader businessName={userDict.companyName}/>}
+
             {/* Orders Testing */}
-            <Typography variant='h4'>Orders</Typography>
-            {orders && orders.map((eachOrder) =>(
-                <StandardOrder order={eachOrder} key={eachOrder.id}/>
-            ))}
+            <div className='shadow-md p-2 rounded-sm m-2'>
+                <Typography variant='h4'>Orders</Typography>
 
-            {/* Invoices Testing */}
-            <Typography variant='h4'>Invoices</Typography>
-            {invoices && invoices.map((eachInvoice) =>(
-                <StandardInvoice invoice={eachInvoice} key={eachInvoice.id} />
-            ))}
-
-            {/* Cards Testing */}
-            <Typography variant='h4'>Cards</Typography>
-            <div className='flex flex-col space-y-2 p-2'>
-                {cards && cards.map((eachCard) =>(
-                    <StandardCardDetails card={eachCard} key={eachCard.id} />
+                {orders && orders.map((eachOrder) =>(
+                    <StandardOrder order={eachOrder} key={eachOrder.id}/>
                 ))}
             </div>
-           
+
+
+            {/* Invoices Testing */}
+            <div className='shadow-md p-2 rounded-sm m-2'>
+
+                <Typography variant='h4'>Invoices</Typography>
+                {invoices && invoices.map((eachInvoice) =>(
+                    <StandardInvoice invoice={eachInvoice} key={eachInvoice.id} />
+                ))}
+            </div>
+
+            {/* Cards Testing */}
+            <div className='shadow-md p-2 rounded-sm m-2'>
+
+                <Typography variant='h4'>Cards</Typography>
+                <div className='flex flex-col space-y-2 p-2'>
+                    {cards && cards.map((eachCard) =>(
+                        <StandardCardDetails card={eachCard} key={eachCard.id} />
+                    ))}
+                </div>
+            </div>
+           <SimpleBottomNavigation/>
         </div>
     )
 }
-export default playground;
+export default Finances;
