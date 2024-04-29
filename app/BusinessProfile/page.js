@@ -86,6 +86,7 @@ const BusinessProfilePage = () => {
     .then((response) =>{
       console.log(response)
       setRefresh(!refresh)
+      setEditMode(!editMode)
     })
     .catch((error) =>{
       console.log(error)
@@ -93,7 +94,7 @@ const BusinessProfilePage = () => {
   }
 
   return (
-    <div className='py-20' key={refresh}>
+    <div className='py-20'>
       {userDict && <TopHeader businessName={userDict.companyName} />}
 
       <ProfileBox key={refresh} editMode={editMode} userEmail={userEmail} toggleEditMode={toggleEditMode} businessDetails={userDict} handleSaveProfile={handleSaveProfile} setBusinessDetails={setUserDict}/>

@@ -1,7 +1,5 @@
 'use client'
 import React from 'react'
-import Packagebox from '../components/Packagebox'
-import Confirmation from '../components/Confirmation'
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 import SimpleBottomNavigation from '../components/Bottomnav'
@@ -36,7 +34,6 @@ const page = () => {
   return (
     <div className='py-20'>
         <TopHeader />
-        <Packagebox />
         {invoices && <StandardInvoice invoice={invoices[0]}/>}
         <Button onClick={router.push('/Home')}>Confirm</Button>
         <SimpleBottomNavigation/>

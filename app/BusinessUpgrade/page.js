@@ -1,14 +1,11 @@
 'use client'
 import React from 'react'
-import Packagebox from '../components/Packagebox'
-import { Box } from '@mui/system'
+import { Box, Typography, List, ListItem, ListItemText, Collapse, Select, MenuItem, Menu} from '@mui/material'
 import { useState, useEffect } from 'react'
-import { Button } from '@mui/base'
 import Billing from '../components/Billing';
 import TopHeader from '../components/Topheader'
 import SimpleBottomNavigation from '../components/Bottomnav'
 import axios from 'axios'
-import { Typography } from '@mui/material'
 
 
 const page = () => {
@@ -24,6 +21,7 @@ const page = () => {
         }
       )
     const [selectedCatalogObj, setSelectedCatalogObj] = useState(null)
+    const [packageId, setPackageId] = useState('')
     const [userDict ,setUserDict] = useState(null)
     const [fullPackageObjData , setFullPackageObjData] = useState(null)
     useEffect(()=>{
@@ -32,27 +30,26 @@ const page = () => {
             const businessId = response.data.squareUserId
             setUserDict(response.data)
             getCards(businessId)
+            getCatalogObjects(response.data)
         })
         .catch((error)=>{
         console.log(error)
         })
     },[])
 
-    useEffect(() => {
+    function getCatalogObjects(localUserDict) {
       axios.get(`${process.env.NEXT_PUBLIC_BACKENDURL}/all-catalog-items`)
       .then((response) => {
         setFullPackageObjData(response.data)
         const mongoDbObjects = response.data.mongoDbObjects;
-        const packageObject = mongoDbObjects.find(obj => obj._id === packageDataID);
-        if (packageObject) {
-          // this part is to get only the name
-          setPackagePrice(packageObject.price);
-        } 
+        const packageObject = mongoDbObjects.find(obj => obj._id === localUserDict.currentPackageId);
+        console.log('package obj is ' , packageObject)
+        setPackageId(packageObject.squareCatalogObjectId)
       })
       .catch((error) => {
         console.log(error);
       });
-    }, []);
+    }
 
     const toggleDropdown = () => {
         setIsOpen(!isOpen);
@@ -66,7 +63,7 @@ const page = () => {
             console.log(err)
         })
     }
-    function userSelectsObject(packageMongoDbId){
+    function userSelected(packageMongoDbId){
       const mongoObj = fullPackageObjData.mongoDbObjects.find((eachObj) => eachObj.id === packageMongoDbId)
       const squareObj = fullPackageObjData.squareObjects.find((eachObj) => eachObj.id === mongoObj.squareCatalogObjectId)
       const selectedCatalogObj = {...squareObj,...mongoObj}
@@ -80,27 +77,24 @@ const page = () => {
         <Box sx={{ border: 1, borderColor: 'black', borderRadius: '10px', textAlign: 'center', maxWidth: '400px', margin: 'auto', padding: '20px' }}>
             
             <Typography variant='h5'>Complete Package Upgrade Payment</Typography>
-            {/* <div style={{ display: 'flex', alignItems: 'center' }}>
-                <h3>Tiers</h3>
-                <Button onClick={toggleDropdown}>Toggle Dropdown</Button>
-                {isOpen && (
-                    <div style={{ border: '1px solid black', marginTop: '5px' }}>
-                    <ul>
-                        <li>Option 1</li>
-                        <li>Option 2</li>
-                        <li>Option 3</li>
-                    </ul>
-                    </div>
-                )}
-            </div> */}
-            {/* Require Package Name Here */}
-            <Box sx={{ border: 1, borderColor: 'black', borderRadius: '10px', textAlign: 'center', maxWidth: '400px', margin: 'auto', padding: '20px' }}>
-                <div>
-                    Package Selected
-                </div>
-            </Box>
+            <div style={{ display: 'flex', alignItems: 'center' }}>
+              {fullPackageObjData && packageId && 
+                  <Select value={fullPackageObjData.squareObjects.find((eachObj) => eachObj.id === packageId) ? fullPackageObjData.squareObjects.find((eachObj) => eachObj.id === packageId) : null } className='w-full'>
+                    {fullPackageObjData.mongoDbObjects.map((mongoDbCatalogObj)=>(
+                      <MenuItem value={mongoDbCatalogObj.squareCatalogObjectId} key={mongoDbCatalogObj.squareCatalogObjectId} onChange={(e) => {setPackageId(e.target.value);console.log(packageId)}}>{mongoDbCatalogObj.itemName}</MenuItem>
+                     ))}
+                </Select>
+              }
+            </div>
+              {/* Display Package Details Here */}
+            {selectedCatalogObj && 
+              <div>
+                
+              </div>
+            }
+  
             
-            {cards && <Billing cardDetails={cards[0]} isDisplay={false} catalogObject={selectedCatalogObj} userDict={userDict}/>}
+            {cards && packageId && <Billing cardDetails={cards[0]} isDisplay={false} catalogObject={selectedCatalogObj} userDict={userDict}/>}
             
         </Box>
         
