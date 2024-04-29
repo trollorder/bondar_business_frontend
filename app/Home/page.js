@@ -7,6 +7,7 @@ import SimpleBottomNavigation from '../components/Bottomnav';
 import { Typography } from '@mui/material';
 import Graph from "../../assets/graph.jpg"
 import Image from 'next/image';
+import MediaBox from '../components/Mediabox';
 
 const page = () => {
     const [userEmail, setUserEmail] = useState(
@@ -28,25 +29,43 @@ const page = () => {
           console.log(error)
         })
     },[])
+    
+    const [insightDict, setInsightDict] = useState({})
+    
+    useEffect(()=>{
+      if (userDict) {
+        axios.get(`${process.env.NEXT_PUBLIC_BACKENDURL}/get-base-business-metrics-for-user` , {params:{businessUserId : userDict['_id']}})
+        .then( (response) =>{
+          setInsightDict(response.data)
+        })
+
+        .catch((error)=>{
+          console.log(error)
+        })}
+    },[userDict])
+
+    const analyticHeaders =['numberOfCustomers', 'impressions', 'conversionRate', 'repeatCustomers', 'totalMeetUps', 'averageDuration']
   return (
     <div className='py-20'>
         {userDict && <TopHeader businessName={userDict.companyName}/>}
         <div>
           <h2>Latest Places Around Your Businesses</h2>
           <div>
-            Images
+            IMAGES 1 IMAGES 2 IMAGES 3
           </div>
           <div>
             <h1>Historical Business Insights</h1>
-            <div className='flex flex-wrap gap-20 mb-10'>
-              <div>Insight 1</div>
-              <div>Insight 2</div>
-              <div>Insight 3</div>
-              <div>Insight 4</div>
-              <div>Insight 5</div>
-              <div>Insight 6</div>
+            <div className='flex flex-wrap space-x-5 mb-10 w-full justify-center'> 
+              {analyticHeaders.map((key) => (
+                <div className='text-center'> 
+                  {/* Circle */} 
+                  <div className='border-2 rounded-xl w-32 h-32 flex items-center justify-center' style={{borderRadius:'50%'}}> 
+                    {insightDict[key]}
+                  </div> 
+                  <Typography>{key}</Typography> 
+              </div>
+              ))}
             </div>
-
             <div>
               <h2>Graph and Charts</h2>
               <Image src={Graph} />
