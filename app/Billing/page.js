@@ -77,22 +77,24 @@ const page = () => {
   return (
     <div className='py-20'>
         {userDict && <TopHeader businessName={userDict.companyName}/>}
-        <Card>
-          <CardContent className='flex'>
-            <DiamondIcon style={{color:getColorFromPrice(packagePrice), fontSize:80}} />
-            <div className='flex flex-col'>
-              <Typography variant='caption'>Current Package</Typography>
-              <Typography variant='body1'>{packagePrice} USD/Month</Typography>
-              <Button variant='contained' onClick={() => router.push('/BusinessUpgrade')}>
-                Upgrade
-              </Button>
-            </div>
-            
-          </CardContent>
-        </Card>
-        
-        {/* Below is the Transposed Table */}
-        {fullPackageObjData && <PackageComparison packageDataMongoDb={fullPackageObjData.mongoDbObjects} />}
+        <div className='mx-2'>
+          <Typography variant='h6' style={{fontWeight:'bold'}}>Current Retainer Package</Typography>
+          <Card>
+            <CardContent className='flex'>
+              <DiamondIcon style={{color:getColorFromPrice(packagePrice), fontSize:80}} />
+              <div className='flex flex-col'>
+                <Typography variant='caption'>Current Package</Typography>
+                <Typography variant='body1'>{packagePrice} USD/Month</Typography>
+                <Button variant='contained' onClick={() => router.push('/BusinessUpgrade')}>
+                  Upgrade
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+          
+          {/* Below is the Transposed Table */}
+          {fullPackageObjData && <PackageComparison packageDataMongoDb={fullPackageObjData.mongoDbObjects} />}
+        </div>
         <SimpleBottomNavigation/>
     </div>
   )

@@ -28,6 +28,7 @@ const page = () => {
           console.log(error)
         })
     },[])
+    const analyticHeaders = ['conversion', 'impressions' , 'cac' , 'duration']
   return (
     <div className='py-20'>
         {userDict && <TopHeader businessName={userDict.companyName}/>}
@@ -38,13 +39,17 @@ const page = () => {
           </div>
           <div>
             <h1>Historical Business Insights</h1>
-            <div className='flex flex-wrap gap-20 mb-10'>
-              <div>Insight 1</div>
-              <div>Insight 2</div>
-              <div>Insight 3</div>
-              <div>Insight 4</div>
-              <div>Insight 5</div>
-              <div>Insight 6</div>
+            <div className='flex flex-wrap space-x-5 mb-10 w-full justify-center'>
+              {analyticHeaders && analyticHeaders.map((eachHeader) => (
+                <div className='text-center'>
+                    {/* Circle */}
+                    <div className='border-2 rounded-xl w-32 h-32 flex items-center justify-center' style={{borderRadius:'50%'}}>
+                      1
+                    </div>
+                    <Typography>{eachHeader}</Typography>
+                </div>
+                
+              ))}
             </div>
 
             <div>

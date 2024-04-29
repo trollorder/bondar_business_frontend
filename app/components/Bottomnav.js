@@ -42,23 +42,20 @@ export default function SimpleBottomNavigation() {
     };
   
     return (
-      <Box sx={{ width: '100%', position: 'fixed', bottom: 0 }}>
+      <Box sx={{ width: '100%', position: 'fixed', bottom: 0 }} >
         <BottomNavigation
           showLabels
           value={value}
           onChange={handleChange}
+          className='bg-secondary text-black'
           sx={{ 
-            backgroundColor: '#b82a66', // Dark pink background color
-            '& .MuiBottomNavigationAction-root': {
-              color: 'pink', // Pink outline color
-            },
             '& .MuiSvgIcon-root': {
               borderRadius: '8px', // Rounded square background
               backgroundColor: 'white', // White background color
             },
           }}
         >
-          <BottomNavigationAction label="Current Plan" icon={<ListIcon />} />
+          <BottomNavigationAction label="Current Plan" className=' font-body' icon={<ListIcon />} />
           <BottomNavigationAction label="Finances" icon={<CreditCardIcon />} />
           <BottomNavigationAction label="Home" icon={<HomeIcon />} />
           <BottomNavigationAction label="Analytics" icon={<AutoGraphIcon />} />

@@ -23,7 +23,7 @@ const page = () => {
       })
     }
   return (
-    <div>
+    <div className='bg-primary'> 
       <ToastContainer/>
         <Login  onSubmitForm={onSubmitForm}/>
     </div>
