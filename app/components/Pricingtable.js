@@ -19,7 +19,51 @@ const rows = [
   createData('Gingerbread', 356, 16.0, 49, 3.9),
 ];
 
+// //create states
+// // "_id": "662c3af3f9b73e2dd09ad977",
+// // "hasInsights": true,
+// const [hasInsights, setHasInsights]=useState(false)
+// // "hasAnalytics": true,
+// const [hasAnalytics, setHasAnalytics]=useState(false)
+// // "hasBenchmarks": true,
+// const [hasBenchmarks, setHasBenchmarks]=useState(false)
+// // "minimumCustomersPerMonth": 100,
+// const [minimumCustomersPerMonth, setMinimumCustomersPerMonth]=useState(0)
+// // "numberOfAssets": 20,
+// const [numberOfAssets, setNumberofAssets]=useState(0)
+// // "hasEmailReminders": true,
+// const [hasEmailReminders, setHasEmailReminders]=useState(false)
+// // "hasMonthlyReports": false,
+// const [hasMonthlyReports, setHasMonthlyReports]=useState(false)
+// // "itemName": "100USD Tier",
+// const [itemName, setItemName]=useState('')
+// // "price": 100,
+// const [price, setPrice]=useState()
+// // "isactive": true,
+// const [isActive, setIsActive]=useState(false)
+
+
+
+
 export default function BasicTable() {
+  // useEffect(() => {
+  //   console.log(packageDataID); // This will log the updated value when packageDataID changes
+  //   axios.get(`${process.env.NEXT_PUBLIC_BACKENDURL}/all-catalog-items`)
+  //   .then((response) => {
+  //     const mongoDbObjects = response.data.mongoDbObjects;
+  //     const packageObject = mongoDbObjects.find(obj => obj._id === packageDataID);
+  //     if (packageObject) {
+  //       setPackagePrice(packageObject.price);
+  //       console.log(packageObject);
+  //     } else {
+  //       console.log("Package not found");
+  //     }
+  //   })
+  //   .catch((error) => {
+  //     console.log(error);
+  //   });
+  // }, [packageDataID]);
+
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">

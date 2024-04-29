@@ -2,6 +2,8 @@
 import Packagebox from '../components/Packagebox'
 import Button from '@mui/material/Button';
 import Pricingtable from '../components/Pricingtable'
+import Testing from '../components/testing'
+
 
 import axios from 'axios';
 import { useEffect, useState } from 'react';
@@ -34,7 +36,8 @@ const page = () => {
         {userDict && <TopHeader businessName={userDict.companyName}/>}
         <Packagebox />
         <Button variant="contained" style={{display: 'flex', justifyContent: 'center'}}>View Invoices</Button>
-        <Pricingtable />
+        {/* <Pricingtable /> */}
+        <Testing />
         <SimpleBottomNavigation/>
     </div>
   )
