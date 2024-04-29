@@ -1,6 +1,6 @@
 import React from 'react'
 import Image from 'next/image'
-import stars from '../../assets/star.jpg'
+import stars from '../../assets/Star.jpg'
 import { ArrowBack } from '@mui/icons-material';
 import { IconButton } from '@mui/material';
 import { useRouter } from 'next/navigation';

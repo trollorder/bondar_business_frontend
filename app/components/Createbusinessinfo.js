@@ -7,7 +7,7 @@ import { ArrowBack } from '@mui/icons-material';
 import { IconButton, Button, CssBaseline, Link,TextField,Grid,Box,Container } from '@mui/material';
 
 //import star design from asset
-import stars from '../../assets/star.jpg'
+import stars from '../../assets/Star.jpg'
 
 const defaultTheme = createTheme();
 

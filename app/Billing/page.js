@@ -2,7 +2,7 @@
 import Packagebox from '../components/Packagebox'
 import Button from '@mui/material/Button';
 import Pricingtable from '../components/Pricingtable'
-import Testing from '../components/testing'
+import Testing from '../components/Testing'
 
 
 import axios from 'axios';
