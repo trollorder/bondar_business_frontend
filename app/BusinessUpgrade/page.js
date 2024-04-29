@@ -84,9 +84,10 @@ const page = () => {
       const orderId = await createNewOrder();
       console.log(orderId)
       const invoiceCreated = await createNewInvoice(orderId); //latestPaidInvoiceId setted here
-      const paymentCreated = await createNewPayment(orderId);
+      // const paymentCreated = await createNewPayment(orderId);
       const updatedUserDict = await updateUserDict(selectedCatalogObjSquareId);
       console.log('Full Order Completed')
+      router.push('/BusinessUpgradeConfirmation')        
 
     }
 
@@ -123,7 +124,6 @@ const page = () => {
       .then((response) =>{
         console.log('payment created : ' , response.data)
         createNewInvoice(orderId)
-        router.push('/BusinessUpgradeConfirmation')        
       })
       .catch((err)=>{
           console.log(err)
@@ -149,7 +149,8 @@ const page = () => {
     }
 
     async function updateUserDict(){
-      const mongoDbId = fullPackageObjData.mongoDbObjects.filter((eachObj) => eachObj.squareCatalogObjectId === selectedCatalogObjSquareId)[0].id
+      const mongoDbId = fullPackageObjData.mongoDbObjects.filter((eachobj) => eachobj.squareCatalogObjectId === selectedCatalogObjSquareId)[0]._id
+      console.log(mongoDbId)
       const response = await axios.post(`${process.env.NEXT_PUBLIC_BACKENDURL}/update-user-package` , {
         userEmail : userEmail ,
         currentPackageId: mongoDbId,

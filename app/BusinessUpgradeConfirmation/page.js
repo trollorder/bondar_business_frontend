@@ -20,6 +20,16 @@ const page = () => {
       }
     )
   const [userDict ,setUserDict] = useState(null)
+  const [latestInvoiceId , setLatestInvoiceId] = useState(
+    () => {
+      if (typeof window !== 'undefined' && window.localStorage) {
+        return localStorage.getItem('latestPayedInvoiceId') || null;
+      } else {
+        return null;
+      }
+    }
+  )
+
   const [generatedInvoice , setGeneratedInvoice] = useState(null)
   useEffect(()=>{
       axios.get(`${process.env.NEXT_PUBLIC_BACKENDURL}/get-business-user-details` , {params:{userEmail : userEmail}})
@@ -36,6 +46,7 @@ const page = () => {
     axios.get(`${process.env.NEXT_PUBLIC_BACKENDURL}/get-user-invoices` , {params:{squareUserId:businessId}})
     .then((response) =>{
         setInvoices(response.data)
+        setGeneratedInvoice(response.data.filter((eachInvoice) => eachInvoice.id === latestInvoiceId)[0])
     })
     .catch((err)=>{
         console.log(err)
