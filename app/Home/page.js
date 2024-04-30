@@ -7,11 +7,11 @@ import SimpleBottomNavigation from '../components/Bottomnav';
 import { Typography } from '@mui/material';
 import Graph from "../../assets/graph.jpg"
 import Image from 'next/image';
-import MediaBox from '../components/Mediabox';
+import imageplaceholder from "../../assets/imageplaceholder.jpg"
 
 const page = () => {
     const [userEmail, setUserEmail] = useState(
-      () => {
+      () => { 
         if (typeof window !== 'undefined' && window.localStorage) {
           return localStorage.getItem('userEmail') || 'NoEmail';
         } else {
@@ -51,7 +51,7 @@ const page = () => {
         <div>
           <h2>Latest Places Around Your Businesses</h2>
           <div>
-            IMAGES 1 IMAGES 2 IMAGES 3
+            <Image src={imageplaceholder} />
           </div>
           <div>
             <h1>Historical Business Insights</h1>
