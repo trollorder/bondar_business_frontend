@@ -1,57 +1,42 @@
-/* App.js */
-'use client'
-import React, { Component } from 'react';
-import CanvasJSReact from '@canvasjs/react-charts';
-//var CanvasJSReact = require('@canvasjs/react-charts');
- 
-var CanvasJS = CanvasJSReact.CanvasJS;
-var CanvasJSChart = CanvasJSReact.CanvasJSChart;
-class App extends Component {
-	render() {
-        const { timeDurationDict } = this.props;
+import React, { useState, useEffect } from 'react';
+import { BarChart, Bar, XAxis, YAxis, Tooltip } from 'recharts';
 
-		const options = {
-			animationEnabled: true,
-			theme: "light2",
-			axisX: {
-				reversed: true,
-			},
-			axisY: {
-				// title: "Monthly Active Users",
-				includeZero: true,
-                lineThickness: 1,
-				// labelFormatter: this.addSymbols
-			},
-			data: [{
-				type: "bar",
-				dataPoints: [
-                    { y: timeDurationDict.fiveToTen, label: "5-10 minutes" },
-                    { y: timeDurationDict.tenToFifteen, label: "10-15 minutes" },
-                    { y: timeDurationDict.fifteenToThirty, label: "15-30 minutes" },
-                    { y: timeDurationDict.thirtyToFortyFive, label: "30-45 minutes" },
-                    { y: timeDurationDict.fortyFiveToSixty, label: "45-60 minutes" },
-                    { y: timeDurationDict.sixtyToSeventyFive, label: "60-75 minutes" },
-                    { y: timeDurationDict.seventyFiveToNinety, label: "75-90 minutes" },
-                    { y: timeDurationDict.ninetyPlus, label: "90++ minutes" },
-                ]
-			}]
-		}
-		return (
-		<div>
-			<CanvasJSChart options = {options}
-				/* onRef={ref => this.chart = ref} */
-			/>
-			{/*You can get reference to the chart instance as shown above using onRef. This allows you to access all chart properties and methods*/}
-		</div>
-		);
-	}
-	addSymbols(e){
-		var suffixes = ["", "K", "M", "B"];
-		var order = Math.max(Math.floor(Math.log(Math.abs(e.value)) / Math.log(1000)), 0);
-		if(order > suffixes.length - 1)
-			order = suffixes.length - 1;
-		var suffix = suffixes[order];
-		return CanvasJS.formatNumber(e.value / Math.pow(1000, order)) + suffix;
-	}
-}
-export default App;
+const TimeDurationChart = ({ timeDurationDict }) => {
+  const [data, setData] = useState([
+    { name: '5-10 minutes', value: timeDurationDict.fiveToTen },
+    { name: '10-15 minutes', value: timeDurationDict.tenToFifteen },
+    { name: '15-30 minutes', value: timeDurationDict.fifteenToThirty },
+    { name: '30-45 minutes', value: timeDurationDict.thirtyToFortyFive },
+    { name: '45-60 minutes', value: timeDurationDict.fortyFiveToSixty },
+    { name: '60-75 minutes', value: timeDurationDict.sixtyToSeventyFive },
+    { name: '75-90 minutes', value: timeDurationDict.seventyFiveToNinety },
+    { name: '90++ minutes', value: timeDurationDict.ninetyPlus },
+  ]);
+
+  // Update data if props change (optional for dynamic data updates)
+  useEffect(() => {
+    setData([
+      { name: '5-10 minutes', value: timeDurationDict.fiveToTen },
+      { name: '10-15 minutes', value: timeDurationDict.tenToFifteen },
+      { name: '15-30 minutes', value: timeDurationDict.fifteenToThirty },
+      { name: '30-45 minutes', value: timeDurationDict.thirtyToFortyFive },
+      { name: '45-60 minutes', value: timeDurationDict.fortyFiveToSixty },
+      { name: '60-75 minutes', value: timeDurationDict.sixtyToSeventyFive },
+      { name: '75-90 minutes', value: timeDurationDict.seventyFiveToNinety },
+      { name: '90++ minutes', value: timeDurationDict.ninetyPlus },
+    ]);
+  }, [timeDurationDict]);
+
+  return (
+    <div style={{ width: '300px' }}> {/* Set a width for the chart container */}
+      <BarChart width={350} height={300} data={data}>
+        <XAxis dataKey="name" tickFormatter={(name) => name.slice(0, -3)} />  {/* Shorten labels */}
+        <YAxis />
+        <Tooltip />
+        <Bar dataKey="value" fill="#8884d8" />
+      </BarChart>
+    </div>
+  );
+};
+
+export default TimeDurationChart;

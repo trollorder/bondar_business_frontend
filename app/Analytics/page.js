@@ -4,8 +4,8 @@ import { useEffect, useState } from 'react';
 import TopHeader from '../components/Topheader';
 import SimpleBottomNavigation from '../components/Bottomnav';
 import { Typography } from '@mui/material';
-import Demographics from "../components/demographics"
-import Duration from '../components/duration';
+import DemographicsChart from "../components/demographics"
+import TimeDurationChart from '../components/duration';
 
 function Page() {  
     const [userEmail, setUserEmail] = useState(
@@ -58,11 +58,11 @@ function Page() {
         {userDict && <TopHeader businessName={userDict.companyName}/>}
         <Typography variant='h5' className='px-4 mt-2 font-title' style={{fontWeight:'bolder'}}>User Demographics</Typography>
           <div className='bg-white rounded-xl m-2 p-2'>
-            <Demographics className='m-2 rounded-xl' male={male} female={female} binary={binary}/>
+            <DemographicsChart className='m-2 rounded-xl' male={male} female={female} binary={binary}/>
           </div>
           <Typography variant='h5' className='px-4 mt-2 font-title' style={{fontWeight:'bolder'}}>Duration</Typography>
           <div className='bg-white rounded-xl m-2 p-2'>
-            <Duration timeDurationDict={timeDurationDict}/>
+            <TimeDurationChart timeDurationDict={timeDurationDict}/>
           </div>
           <Typography variant='h5' className='px-4 mt-2 font-title' style={{fontWeight:'bolder'}}>Insights and Recommendations</Typography>
           <div className='bg-white rounded-xl m-2 px-4 pt-8 flex flex-col space-y-2 pb-10'>
