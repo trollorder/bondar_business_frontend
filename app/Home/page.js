@@ -1,5 +1,4 @@
 'use client'
-
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import TopHeader from '../components/Topheader';
@@ -7,8 +6,7 @@ import SimpleBottomNavigation from '../components/Bottomnav';
 import { Typography } from '@mui/material';
 import Graph from "../../assets/graph.jpg"
 import Image from 'next/image';
-import imageplaceholder from "../../assets/imageplaceholder.jpg"
-import Placeholderimage from "./components/Placeholderimage"
+import Placeholderimage from '../components/Placeholderimage'
 
 
 const Page = () => {

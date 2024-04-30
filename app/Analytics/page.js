@@ -1,15 +1,13 @@
 'use client'
-
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import TopHeader from '../components/Topheader';
 import SimpleBottomNavigation from '../components/Bottomnav';
-import { Container, Typography } from '@mui/material';
-import Image from 'next/image';
-import Demographics from "./components/demographics"
-import Duration from './components/duration';
+import { Typography } from '@mui/material';
+import Demographics from "../components/demographics"
+import Duration from '../components/duration';
 
-const Page = () => {  
+function Page() {  
     const [userEmail, setUserEmail] = useState(
       () => {
         if (typeof window !== 'undefined' && window.localStorage) {
