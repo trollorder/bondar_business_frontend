@@ -18,7 +18,7 @@ class App extends Component {
 			axisY: {
 				// title: "Monthly Active Users",
 				includeZero: true,
-                lineThickness: 1,
+                // lineThickness: 1,
 				// labelFormatter: this.addSymbols
 			},
 			data: [{

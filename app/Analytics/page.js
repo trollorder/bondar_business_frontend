@@ -56,31 +56,25 @@ const page = () => {
 
     
   return (
-    <div className='py-20'>
+    <div className='py-20 bg-primary'>
         {userDict && <TopHeader businessName={userDict.companyName}/>}
-        <Typography>
-          <div>
-            <h2>User Demographics</h2>
-            <Demographics male={male} female={female} binary={binary}/>
+        <Typography variant='h5' className='px-4 mt-2 font-title' style={{fontWeight:'bolder'}}>User Demographics</Typography>
+          <div className='bg-white rounded-xl m-2 p-2'>
+            <Demographics className='m-2 rounded-xl' male={male} female={female} binary={binary}/>
           </div>
-
-          <div>
-            <h2>Duration</h2>
-            {/* <Image src={duration} /> */}
+          <Typography variant='h5' className='px-4 mt-2 font-title' style={{fontWeight:'bolder'}}>Duration</Typography>
+          <div className='bg-white rounded-xl m-2 p-2'>
             <Duration timeDurationDict={timeDurationDict}/>
           </div>
-
-          <div>
-            <h2>Insights and Recommendation</h2>
-            <Container>
-              {Object.keys(insight).map((key) => (
-                <div key={key}>
-                  <Typography variant="body1">{insight[key]}</Typography>
-                </div>
-              ))}
-            </Container>
+          <Typography variant='h5' className='px-4 mt-2 font-title' style={{fontWeight:'bolder'}}>Insights and Recommendations</Typography>
+          <div className='bg-white rounded-xl m-2 p-2 flex flex-col space-y-2'>
+            <Typography variant='h6' className=' mb-2 font-title' style={{fontSize:'1rem', fontWeight:'bold'}}>Duration Recommendation</Typography>
+            <Typography variant="body1">{insight.durationRecommendation}</Typography>
+            <Typography variant='h6' className=' mb-2 font-title' style={{fontSize:'1rem', fontWeight:'bold'}}>Conversion Rate Recommendation</Typography>
+            <Typography variant="body1">{insight.conversionRateRecommendation}</Typography>
+            <Typography variant='h6' className=' mb-2 font-title' style={{fontSize:'1rem', fontWeight:'bold'}}>Meetup Recommendation</Typography>
+            <Typography variant="body1">{insight.meetUpRecommendation}</Typography>
           </div>
-        </Typography>
         <SimpleBottomNavigation/>
     </div>
   )

@@ -15,7 +15,7 @@ const StandardInvoice = ({ invoice }) => {
   } = invoice;
 
   return (
-    <Box sx={{ padding: 2 }}>
+    <Box sx={{ padding: 2 }} className='bg-white mb-2 rounded-xl'>
       <Grid container spacing={2}>
         <Grid item xs={6}>
           <List>
