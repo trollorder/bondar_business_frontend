@@ -109,7 +109,7 @@ function Finances(){
         })
     }
     return(
-        <div className='py-20 bg-primary'>
+        <div className='py-20 bg-primary min-h-screen overflow-auto'>
             
             {userDict && <TopHeader businessName={userDict.companyName}/>}
 
@@ -124,14 +124,14 @@ function Finances(){
             {/* Invoices Testing */}
             {activeTab==='Invoices' && <div className='shadow-md p-2 rounded-sm m-2'>
 
-                <Typography variant='h5' className='px-4 mt-2' style={{fontWeight:'bolder'}}>Invoices</Typography>
+                <Typography variant='h5' className='px-4 mt-2 font-title' style={{fontWeight:'bolder'}}>Invoices</Typography>
                 {invoices && invoices.map((eachInvoice) =>(
                     <StandardInvoice invoice={eachInvoice} key={eachInvoice.id} />
                 ))}
             </div>}
                 {/* Orders Testing */}
             {activeTab==='Orders' && <div className='shadow-md p-2 rounded-sm m-2'>
-                <Typography variant='h5' className='px-4 mt-2' style={{fontWeight:'bolder'}}>Orders</Typography>
+                <Typography variant='h5' className='px-4 mt-2 font-title' style={{fontWeight:'bolder'}}>Orders</Typography>
 
                 {orders && orders.map((eachOrder) =>(
                     <StandardOrder order={eachOrder} key={eachOrder.id}/>
@@ -141,7 +141,7 @@ function Finances(){
             {activeTab === "Cards" && <div className='shadow-md p-2 rounded-sm m-2'>
 
             <Typography variant='h5' className='px-4 mt-2' style={{fontWeight:'bolder'}}>Cards</Typography>
-                <div className='flex flex-col space-y-2 p-2'>
+                <div className='flex flex-col space-y-2 p-2 font-title'>
                     {cards && cards.map((eachCard) =>(
                         <StandardCardDetails card={eachCard} key={eachCard.id} onDeleteCard={onDeleteCard} />
                     ))}

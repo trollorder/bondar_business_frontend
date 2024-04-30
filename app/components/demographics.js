@@ -1,13 +1,12 @@
-/* App.js */
+'use client'
 import React, { Component } from 'react';
 import CanvasJSReact from '@canvasjs/react-charts';
-//var CanvasJSReact = require('@canvasjs/react-charts');
  
 var CanvasJS = CanvasJSReact.CanvasJS;
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 class App extends Component {
 	render() {
-        const { timeDurationDict } = this.props;
+        const { male, female, binary } = this.props;
 
 		const options = {
 			animationEnabled: true,
@@ -18,21 +17,16 @@ class App extends Component {
 			axisY: {
 				// title: "Monthly Active Users",
 				includeZero: true,
-                lineThickness: 1,
+                // lineThickness: 1,
 				// labelFormatter: this.addSymbols
 			},
 			data: [{
 				type: "bar",
 				dataPoints: [
-                    { y: timeDurationDict.fiveToTen, label: "5-10 minutes" },
-                    { y: timeDurationDict.tenToFifteen, label: "10-15 minutes" },
-                    { y: timeDurationDict.fifteenToThirty, label: "15-30 minutes" },
-                    { y: timeDurationDict.thirtyToFortyFive, label: "30-45 minutes" },
-                    { y: timeDurationDict.fortyFiveToSixty, label: "45-60 minutes" },
-                    { y: timeDurationDict.sixtyToSeventyFive, label: "60-75 minutes" },
-                    { y: timeDurationDict.seventyFiveToNinety, label: "75-90 minutes" },
-                    { y: timeDurationDict.ninetyPlus, label: "90++ minutes" },
-                ]
+					{ y:  female, label: "Female" },
+					{ y:  male, label: "Male" },
+					{ y:  binary, label: "Non Binary" },
+				]
 			}]
 		}
 		return (

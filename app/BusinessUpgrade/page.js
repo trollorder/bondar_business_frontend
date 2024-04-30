@@ -9,7 +9,7 @@ import { useRouter } from 'next/navigation';
 import StandardCardDetails from '../PaymentComponents/StandardCardDisplay';
 import SelectedPlanCard from '../components/SelectedPlanDetails';
 
-const page = () => {
+const Page = () => {
     const router = useRouter();
     const [isOpen, setIsOpen] = useState(false);
     const [cards, setCards] = useState(null);
@@ -174,7 +174,7 @@ const page = () => {
               {fullPackageObjData && selectedCatalogObjSquareId && 
                 <Select className='w-full' value={selectedCatalogObjSquareId}  onChange={(e)=> handleSelectChange(e)}>
                   {fullPackageObjData.mongoDbObjects.sort((objA, objB) => objA.price <= objB.price).map((eachPackage) => (
-                    <MenuItem value={eachPackage.squareCatalogObjectId}>{eachPackage.itemName}</MenuItem>
+                    <MenuItem key={eachPackage.itemName} value={eachPackage.squareCatalogObjectId}>{eachPackage.itemName}</MenuItem>
                   ))}
                 </Select>
               }
@@ -183,7 +183,7 @@ const page = () => {
             {selectedCatalogObjSquareId&& fullPackageObjData && 
               <div>
                 {fullPackageObjData.mongoDbObjects.filter((eachItem) => eachItem.squareCatalogObjectId === selectedCatalogObjSquareId).map((catalogObject)=>(
-                  <SelectedPlanCard catalogObject={catalogObject}/>
+                  <SelectedPlanCard catalogObject={catalogObject} key={catalogObject.id}/>
                 ))}
               </div>
             }
@@ -194,11 +194,11 @@ const page = () => {
                 <Typography variant='caption' style={{fontWeight:'bold'}}>Choose a Card</Typography>
                 <Tabs onChange={handleChange} value={activeTab}>
                   {cards.map((eachCard)=>(
-                    <Tab label={eachCard.last4} value={eachCard.id} />
+                    <Tab key={eachCard.id} label={eachCard.last4} value={eachCard.id} />
                   ))}
                 </Tabs>
                 {cards.map((eachCard) => (
-                  <div>
+                  <div key={eachCard.id}>
                     {activeTab === eachCard.id && <div>
                       <StandardCardDetails card={eachCard} isDisplay={true} key={eachCard.id} />
                       {/* <Button className='self-center' variant='contained' color='success' onClick={() => handleSelectCard(eachCard.id)}>Select Card and Pay</Button> */}
@@ -223,4 +223,4 @@ const page = () => {
   )
 }
 
-export default page
+export default Page;

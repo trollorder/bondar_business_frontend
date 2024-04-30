@@ -6,7 +6,7 @@ import TopHeader from '../components/Topheader';
 import SimpleBottomNavigation from '../components/Bottomnav';
 import BudgetControllerBox from '../PaymentComponents/BudgetControllerBox';
 import LoyaltyProgramLineItemCard from '../components/LoyaltyLineItemDisplays';
-function playground(){
+function Page(){
     const [userEmail, setUserEmail] = useState(
         () => {
           if (typeof window !== 'undefined' && window.localStorage) {
@@ -133,7 +133,7 @@ function playground(){
                         <Typography variant='h6' className='font-black p-4'>{currentTab}</Typography>
                           {
                             loyaltyProgrammeDict.discountObjects.map((eachObj) => (
-                              <LoyaltyProgramLineItemCard data={eachObj} />
+                              <LoyaltyProgramLineItemCard data={eachObj} key={eachObj._id} />
                             ))
                           }
                       </div>
@@ -152,7 +152,7 @@ function playground(){
                         <Typography variant='h6' className='font-black p-4'>{currentTab}</Typography>
                         {
                           loyaltyProgrammeDict.couponObjects.map((eachObj) => (
-                            <LoyaltyProgramLineItemCard data={eachObj} />
+                            <LoyaltyProgramLineItemCard data={eachObj} key={eachObj._id} />
                           ))
                         }
                       </div>
@@ -171,7 +171,7 @@ function playground(){
                         <Typography variant='h6' className='font-black p-4'>{currentTab}</Typography>
                         {
                           loyaltyProgrammeDict.subscriptionObjects.map((eachObj) => (
-                            <LoyaltyProgramLineItemCard data={eachObj} />
+                            <LoyaltyProgramLineItemCard data={eachObj} key={eachObj._id} />
                           ))
                         }
                       </div>
@@ -192,4 +192,4 @@ function playground(){
         </div>
     )
 }
-export default playground;
+export default Page;

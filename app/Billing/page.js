@@ -9,7 +9,7 @@ import { useRouter } from 'next/navigation';
 import { CardContent, Card, Typography } from '@mui/material';
 import DiamondIcon from '@mui/icons-material/Diamond';
 
-const page = () => {
+const Page = () => {
   const router  = useRouter();
     const [userEmail, setUserEmail] = useState(
       () => {
@@ -102,4 +102,4 @@ const page = () => {
   )
 }
 
-export default page
+export default Page;

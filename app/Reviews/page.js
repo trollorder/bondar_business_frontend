@@ -6,7 +6,7 @@ import ReviewBox from '../components/Reviewbox';
 import TopHeader from '../components/Topheader';
 import SimpleBottomNavigation from '../components/Bottomnav';
 
-const page = () => {
+const Page = () => {
     // get all reviews and display it 
     const [userDict , setUserDict] = useState(null)
     const [reviews, setReviews] = useState(null)
@@ -50,4 +50,4 @@ const page = () => {
     )
 }
 
-export default page
+export default Page

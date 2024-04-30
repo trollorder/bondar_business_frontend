@@ -7,7 +7,7 @@ import { useRouter } from 'next/navigation'
 import axios from 'axios';
 import Topdesign from '../components/Topdesign';
 
-const page = () => {
+const Page = () => {
     const router =  useRouter()
     async function onSubmitForm({userEmail,password}){
       console.log(userEmail,password)
@@ -31,4 +31,4 @@ const page = () => {
   )
 }
 
-export default page
+export default Page
