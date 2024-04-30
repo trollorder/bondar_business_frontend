@@ -53,11 +53,11 @@ export default function SimpleBottomNavigation() {
             '& .MuiSvgIcon-root': {
               borderRadius: '8px', // Rounded square background
               backgroundColor: 'white', // White background color
-            }, height: '80px'
+            }, height: '6vh'
           }}
         >
           <BottomNavigationAction
-            label="Current Plan"
+            label="Billing"
             className='font-body text-xs' // Apply text-xs class for 0.5rem font size
             icon={<ListIcon />}
           />
@@ -77,9 +77,9 @@ export default function SimpleBottomNavigation() {
             icon={<AutoGraphIcon />}
           />
           <BottomNavigationAction
-            label="Business Profile"
+            label="Profile"
             className='text-xs' // Apply text-xs class for 0.5rem font size
-            icon={<WorkOutlineIcon />}
+            icon={<WorkOutlineIcon className='bg-white'/>}
           />
         </BottomNavigation>
       </Box>

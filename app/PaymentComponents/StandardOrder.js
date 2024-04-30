@@ -19,7 +19,7 @@ const StandardOrder = ({ order }) => {
 
   return (
     <Box sx={{ padding: 2 }} className='bg-white mb-2'>
-      <Typography variant="h6" gutterBottom>
+      <Typography variant="h6" className='font-title' gutterBottom>
         Order Details (ID: {id})
       </Typography>
       <Grid container spacing={2}>
