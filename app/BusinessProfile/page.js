@@ -97,20 +97,22 @@ const BusinessProfilePage = () => {
   }
 
   return (
-    <div className='py-20'>
+    <div className='py-20 bg-primary'>
       {userDict && <TopHeader businessName={userDict.companyName} />}
 
       <ProfileBox key={refresh} editMode={editMode} userEmail={userEmail} toggleEditMode={toggleEditMode} businessDetails={userDict} handleSaveProfile={handleSaveProfile} setBusinessDetails={setUserDict}/>
 
       {generalMediaUrls && <MediaBox userEmail={userEmail} editMode={editMode} toggleEditMode={toggleEditMode} generalMediaUrls={generalMediaUrls} onDeleteImage={onDeleteImage} />}
+      <Typography variant='h5' className='px-4 mt-2' style={{fontWeight:'bolder'}}>Loyalty Programmes</Typography>
+      <Box sx={{textAlign: 'center', maxWidth: '400px', margin: 'auto' }} className='mt-2 bg-white p-4 shadow-md rounded-xl'>
+        <Typography variant='body2 mb-2'>Learn more about our loyalty program and rewards!</Typography>
+        <Button className='py-3 px-10 font-body' type='small' variant='contained' onClick={() => router.push('/LoyaltyProgramme')} style={{backgroundColor:'black', color:'white'}}>Offer Loyalty Programmes</Button>
+      </Box>
+      <Typography variant='h5' className='px-4 mt-2' style={{fontWeight:'bolder'}}>Reviews</Typography>
 
       {reviews && <ReviewBox  reviews = {reviews} />}
 
-      <Box sx={{ border: 1, borderColor: 'black', borderRadius: '10px', textAlign: 'center', maxWidth: '400px', margin: 'auto', padding: '20px' }} classNam>
-        <Typography variant='h5'>Loyalty Rewards</Typography>
-        <Typography variant='body2'>Learn more about our loyalty program and rewards!</Typography>
-        <Button type='small' variant='contained' onClick={() => router.push('/LoyaltyProgramme')} >Explore Loyalty Programmes</Button>
-      </Box>
+      
       <SimpleBottomNavigation />
     </div>
   );

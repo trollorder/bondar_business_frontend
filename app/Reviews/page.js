@@ -41,9 +41,10 @@ const page = () => {
     }
 
     return (
-        <div className='py-20'>
+        <div className='py-20 bg-primary'>
           {userDict && <TopHeader businessName={userDict.companyName}/>}
-            {reviews && <ReviewBox reviews={reviews}/>}
+          <Typography variant='h5' className='px-4 mt-2' style={{fontWeight:'bolder'}}>Reviews</Typography>
+          {reviews && <ReviewBox reviews={reviews}/>}
           <SimpleBottomNavigation/>
         </div>
     )

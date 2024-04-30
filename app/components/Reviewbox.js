@@ -11,24 +11,21 @@ const ReviewBox = ({ reviews }) => {
 
 
   return (
-    <Box sx={{ borderRadius: '10px', textAlign: 'center', maxWidth: '400px', margin: 'auto', padding: '20px' }}>
-      <Typography variant="h5" style={{ textAlign: 'center' }}>
-        Reviews
-      </Typography>
+    <Box sx={{ borderRadius: '10px', textAlign: 'center', maxWidth: '400px', margin: 'auto' }}>
       <List style={{ listStyle: 'none', padding: 0 }}>
         {reviews.map((review) => (
           <ListItem key={review._id} sx={{ marginBottom: '10px' }}>
             <Card className='w-full'>
               <CardContent>
-                <Typography variant='subtitle1'>{review.title}</Typography>
-                <Typography variant='body2'>{review.reviewer}</Typography>
-                <Typography variant='caption'>{review.reviewText}</Typography>
+                <Typography className='font-title' variant='subtitle1' style={{fontWeight:'bolder'}}>{review.title}</Typography>
+                <Typography className='font-body' variant='body2' style={{fontVariant:'initial'}}>{review.reviewer}</Typography>
+                <Typography className='font-body' variant='body1'>{review.reviewText}</Typography>
               </CardContent>
             </Card>
           </ListItem>
         ))}
       </List>
-      <Button variant='outlined' color='success' onClick={() => router.push('/Reviews')}>Read All Reviews</Button>
+      <Button className='font-body px-10 py-3' variant='contained' color='success' onClick={() => router.push('/Reviews')}>Read All Reviews</Button>
     </Box>
   );
 };

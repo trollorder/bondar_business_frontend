@@ -6,10 +6,10 @@ import ImageUploader from './ImageUploader';
 
 const MediaBox = ({userEmail, editMode, toggleEditMode,generalMediaUrls, onDeleteImage }) => {
   return (
-    <Box sx={{ border: 1, borderColor: 'black', borderRadius: '10px', textAlign: 'center', maxWidth: '400px', margin: 'auto', padding: '20px' }} >
-      <Typography variant='h4'>Media</Typography>
+    <Box sx={{ maxWidth: '400px', margin: 'auto'}} >
+      <Typography variant='h5' style={{fontWeight:'bold'}}>Media And Photos</Typography>
       {generalMediaUrls.length > 0 && (
-        <div className="flex flex-1 space-x-2 overflow-x-scroll justify-center w-full z-0">
+        <div className="flex bg-white py-2 shadow-md rounded-xl flex-1 space-x-2 overflow-x-scroll justify-center w-full z-0">
           {generalMediaUrls.map((eachUrl) => (
             <div className='space-y-2' >
               <Image
@@ -17,7 +17,8 @@ const MediaBox = ({userEmail, editMode, toggleEditMode,generalMediaUrls, onDelet
                 src={eachUrl}
                 width={100}
                 height={100}
-                style={{ borderRadius: '50%', width: '100px', height: '100px' }}
+                className='rounded-md'
+                style={{ width: '100px', height: '150px' }}
                 alt='generalImage'
                 onError={(error) => {
                   console.error('Error loading image:', error);

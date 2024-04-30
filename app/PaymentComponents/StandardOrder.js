@@ -18,7 +18,7 @@ const StandardOrder = ({ order }) => {
     };
 
   return (
-    <Box sx={{ padding: 2 }}>
+    <Box sx={{ padding: 2 }} className='bg-white mb-2'>
       <Typography variant="h6" gutterBottom>
         Order Details (ID: {id})
       </Typography>

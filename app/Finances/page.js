@@ -109,7 +109,7 @@ function Finances(){
         })
     }
     return(
-        <div className='py-20'>
+        <div className='py-20 bg-primary'>
             
             {userDict && <TopHeader businessName={userDict.companyName}/>}
 
