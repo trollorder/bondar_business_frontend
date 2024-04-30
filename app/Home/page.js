@@ -59,7 +59,7 @@ const Page = () => {
             <h1>Historical Business Insights</h1>
             <div className='flex flex-wrap space-x-5 mb-10 w-full justify-center'> 
               {analyticHeaders.map((key) => (
-                <div className='text-center'> 
+                <div className='text-center' key={key}> 
                   {/* Circle */} 
                   <div className='border-2 rounded-xl w-32 h-32 flex items-center justify-center' style={{borderRadius:'50%'}}> 
                     {insightDict[key]}
