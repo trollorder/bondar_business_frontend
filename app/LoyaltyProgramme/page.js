@@ -6,7 +6,7 @@ import TopHeader from '../components/Topheader';
 import SimpleBottomNavigation from '../components/Bottomnav';
 import BudgetControllerBox from '../PaymentComponents/BudgetControllerBox';
 import LoyaltyProgramLineItemCard from '../components/LoyaltyLineItemDisplays';
-function playground(){
+function Page(){
     const [userEmail, setUserEmail] = useState(
         () => {
           if (typeof window !== 'undefined' && window.localStorage) {
@@ -192,4 +192,4 @@ function playground(){
         </div>
     )
 }
-export default playground;
+export default Page;

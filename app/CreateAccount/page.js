@@ -7,7 +7,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useRouter } from 'next/navigation';
 import axios from 'axios'
 
-const page = () => {
+const Page = () => {
   const [tab,setTab]  = useState(0)
   const router =  useRouter()
   const [submitForm, setSubmitForm] = useState({})
@@ -30,4 +30,4 @@ const page = () => {
   )
 }
 
-export default page
+export default Page;

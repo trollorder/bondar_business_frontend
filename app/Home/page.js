@@ -11,7 +11,7 @@ import imageplaceholder from "../../assets/imageplaceholder.jpg"
 import Placeholderimage from "./components/Placeholderimage"
 
 
-const page = () => {
+const Page = () => {
     const [userEmail, setUserEmail] = useState(
       () => { 
         if (typeof window !== 'undefined' && window.localStorage) {
@@ -79,4 +79,4 @@ const page = () => {
   )
 }
 
-export default page
+export default Page;

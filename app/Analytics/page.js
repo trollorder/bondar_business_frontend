@@ -9,7 +9,7 @@ import Image from 'next/image';
 import Demographics from "./components/demographics"
 import Duration from './components/duration';
 
-const page = () => {  
+const Page = () => {  
     const [userEmail, setUserEmail] = useState(
       () => {
         if (typeof window !== 'undefined' && window.localStorage) {
@@ -80,4 +80,4 @@ const page = () => {
   )
 }
 
-export default page
+export default Page

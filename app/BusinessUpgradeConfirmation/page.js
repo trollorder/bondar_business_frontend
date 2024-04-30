@@ -11,7 +11,7 @@ import {Typography, Card, CardContent} from '@mui/material'
 import DiamondIcon from '@mui/icons-material/Diamond';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 
-const page = () => {
+const Page = () => {
   const router = useRouter();
   const [invoices,setInvoices] = useState(null)
   const [userEmail, setUserEmail] = useState(
@@ -130,4 +130,4 @@ const page = () => {
   )
 }
 
-export default page
+export default Page;

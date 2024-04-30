@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import StandardInvoice from '../PaymentComponents/StandardInvoice';
 import StandardCardDetails from '../PaymentComponents/StandardCardDisplay';
 import { Typography } from '@mui/material';
-function playground(){
+function Page(){
     const [orders,setOrders] = useState(null)
     const [invoices,setInvoices] = useState(null)
     const [cards, setCards] = useState(null)
@@ -86,4 +86,4 @@ function playground(){
         </div>
     )
 }
-export default playground;
+export default Page;

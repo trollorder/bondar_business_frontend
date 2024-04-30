@@ -9,7 +9,7 @@ import { useRouter } from 'next/navigation';
 import StandardCardDetails from '../PaymentComponents/StandardCardDisplay';
 import SelectedPlanCard from '../components/SelectedPlanDetails';
 
-const page = () => {
+const Page = () => {
     const router = useRouter();
     const [isOpen, setIsOpen] = useState(false);
     const [cards, setCards] = useState(null);
@@ -174,7 +174,7 @@ const page = () => {
               {fullPackageObjData && selectedCatalogObjSquareId && 
                 <Select className='w-full' value={selectedCatalogObjSquareId}  onChange={(e)=> handleSelectChange(e)}>
                   {fullPackageObjData.mongoDbObjects.sort((objA, objB) => objA.price <= objB.price).map((eachPackage) => (
-                    <MenuItem value={eachPackage.squareCatalogObjectId}>{eachPackage.itemName}</MenuItem>
+                    <MenuItem key={eachPackage.itemName} value={eachPackage.squareCatalogObjectId}>{eachPackage.itemName}</MenuItem>
                   ))}
                 </Select>
               }
@@ -223,4 +223,4 @@ const page = () => {
   )
 }
 
-export default page
+export default Page;
