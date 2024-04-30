@@ -6,7 +6,7 @@ import ImageUploader from './ImageUploader';
 
 const MediaBox = ({userEmail, editMode, toggleEditMode,generalMediaUrls, onDeleteImage }) => {
   return (
-    <Box sx={{ maxWidth: '400px', margin: 'auto'}} >
+    <Box sx={{ maxWidth: '400px', margin: 'auto'}} className='z-0' >
       <Typography variant='h5' style={{fontWeight:'bold'}}>Media And Photos</Typography>
       {generalMediaUrls.length > 0 && (
         <div className="flex bg-white py-2 shadow-md rounded-xl flex-1 space-x-2 overflow-x-scroll justify-center w-full z-0">
@@ -29,8 +29,7 @@ const MediaBox = ({userEmail, editMode, toggleEditMode,generalMediaUrls, onDelet
           ))}
         </div>
       )}
-
-      {editMode && <ImageUploader userEmail={userEmail} uploadType={"generalMedia"}/>}
+      <ImageUploader userEmail={userEmail} uploadType={"generalMedia"}/>
       {editMode && (
         <Button className="edit-button" onClick={toggleEditMode}>
           Save Images

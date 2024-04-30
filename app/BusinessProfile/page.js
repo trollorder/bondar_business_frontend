@@ -102,7 +102,7 @@ const BusinessProfilePage = () => {
 
       <ProfileBox key={refresh} editMode={editMode} userEmail={userEmail} toggleEditMode={toggleEditMode} businessDetails={userDict} handleSaveProfile={handleSaveProfile} setBusinessDetails={setUserDict}/>
 
-      {generalMediaUrls && <MediaBox userEmail={userEmail} editMode={editMode} toggleEditMode={toggleEditMode} generalMediaUrls={generalMediaUrls} onDeleteImage={onDeleteImage} />}
+      {generalMediaUrls && <MediaBox className='z-0' userEmail={userEmail} editMode={editMode} toggleEditMode={toggleEditMode} generalMediaUrls={generalMediaUrls} onDeleteImage={onDeleteImage} />}
       <Typography variant='h5' className='px-4 mt-2' style={{fontWeight:'bolder'}}>Loyalty Programmes</Typography>
       <Box sx={{textAlign: 'center', maxWidth: '400px', margin: 'auto' }} className='mt-2 bg-white p-4 shadow-md rounded-xl'>
         <Typography variant='body2 mb-2'>Learn more about our loyalty program and rewards!</Typography>

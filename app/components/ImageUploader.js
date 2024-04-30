@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import CloudinaryUploadWidget from './cloudinaryUploadWidget';
 import axios from 'axios';
 function ImageUploader({userEmail,uploadType}) {
-    const [selectedFile, setSelectedFile] = useState(null);
     const [public_id , setPublicId] = useState('')
     const [userEmailLocal, setUserEmailLocal] = useState(userEmail)
     const [uwConfig] = useState({
