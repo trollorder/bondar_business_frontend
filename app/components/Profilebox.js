@@ -51,9 +51,9 @@ const ProfileBox = ({userEmail, editMode, toggleEditMode, businessDetails, setBu
                 <MenuItem value="Sports">Sports</MenuItem>
               </Select><br />
               <Select className='w-1/3' value={businessDetails.companyMinorType} onChange={(e) => setBusinessDetails({...businessDetails,companyMinorType:e.target.value})}>
-                <MenuItem value="Subtype 1">Subtype 1</MenuItem>
-                <MenuItem value="Subtype 2">Subtype 2</MenuItem>
-                <MenuItem value="Subtype 3">Subtype 3</MenuItem>
+                <MenuItem value="Subtype 1">Food</MenuItem>
+                <MenuItem value="Subtype 2">Tourism</MenuItem>
+                <MenuItem value="Subtype 3">Shopping</MenuItem>
               </Select><br />
               <Select  className='w-1/3' value={businessDetails.companyPriceLevel} onChange={(e) => setBusinessDetails({...businessDetails,companyPriceLevel:e.target.value})}>
                 <MenuItem value="$">$</MenuItem>
