@@ -5,7 +5,7 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import { Button, Card, CardContent } from '@mui/material';
 import { useRouter } from 'next/navigation';
-
+import GradeIcon from '@mui/icons-material/Grade';
 const ReviewBox = ({ reviews }) => {  
   const router = useRouter();
 
@@ -17,6 +17,11 @@ const ReviewBox = ({ reviews }) => {
           <ListItem key={review._id} sx={{ marginBottom: '10px' }}>
             <Card className='w-full'>
               <CardContent>
+                <div className="rating-container">
+                  {Array.from({ length: review.rating }, (_, i) => (
+                    <GradeIcon key={i} style={{color:"gold"}}/> // Add unique keys for each icon
+                  ))}
+                </div>
                 <Typography className='font-title' variant='subtitle1' style={{fontWeight:'bolder'}}>{review.title}</Typography>
                 <Typography className='font-body' variant='body2' style={{fontVariant:'initial'}}>{review.reviewer}</Typography>
                 <Typography className='font-body' variant='body1'>{review.reviewText}</Typography>

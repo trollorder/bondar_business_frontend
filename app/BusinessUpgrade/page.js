@@ -164,13 +164,13 @@ const page = () => {
     }
 
   return (
-    <div className='py-20'>
+    <div className='py-20 min-h-screen overflow-auto bg-primary'>
         <TopHeader />
         {/* <Packagebox /> */}
-        <Box sx={{maxWidth: '400px', margin: 'auto', padding: '20px' }}>
+        <Box sx={{maxWidth: '400px', margin: 'auto', padding: '20px' }} className='bg-white'>
             
-            <Typography variant='h5'>Select A Package To Upgrade</Typography>
-            <div style={{ display: 'flex', alignItems: 'center' }}>
+          <Typography variant='h5' className='px-4 mt-2' style={{fontWeight:'bolder'}}>Select a Package</Typography>
+            <div style={{ display: 'flex', alignItems: 'center' }} className='py-2'>
               {fullPackageObjData && selectedCatalogObjSquareId && 
                 <Select className='w-full' value={selectedCatalogObjSquareId}  onChange={(e)=> handleSelectChange(e)}>
                   {fullPackageObjData.mongoDbObjects.sort((objA, objB) => objA.price <= objB.price).map((eachPackage) => (
@@ -213,7 +213,7 @@ const page = () => {
 
             {/* Don't Show if user no change selection from current plan */}
             {/* activetab is also a signifier if card is selected */}
-            {selectedCatalogObjSquareId !== currentPackageId && activeTab && <Button onClick={() => confirmOrder()} variant='contained' color='success'>Confirm Order and Pay Now</Button>}
+            {selectedCatalogObjSquareId !== currentPackageId && activeTab && <Button onClick={() => confirmOrder()} variant='contained' color='success' className='py-2 mt-2 bg-black text-white'>Confirm Order and Pay Now</Button>}
         </Box>
 
         

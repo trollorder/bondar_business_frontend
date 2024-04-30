@@ -41,7 +41,6 @@ const PackageComparison = ({ packageDataMongoDb }) => {
 
     return (
         <div>
-        <Typography variant="h6">Package Comparison</Typography>
         <TableContainer component={Paper}>
             <Table sx={{ minWidth: 650 }}>
             <TableHead>

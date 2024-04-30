@@ -113,7 +113,7 @@ function playground(){
               {loyaltyProgrammeDict && 
               <div>  
                 {/* Main Component Display */}
-                <Typography variant='h6' className='font-black'>Current Budget</Typography>
+                <Typography variant='h6' style={{fontWeight:'bold'}}>Current Budget</Typography>
                 <div className=''>
                   {/* Edit Budget Here */}
                   <BudgetControllerBox budget={budget} onBudgetChange={onBudgetChange} loyaltyProgrammeDict={loyaltyProgrammeDict} />

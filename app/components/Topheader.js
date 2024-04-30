@@ -48,24 +48,23 @@ export default function TopHeader({ businessName }) {
             <List>
             <ListItem>
                 <Button href="/page1" onClick={handleClose}>
-                <ListItemText primary="FAQ" primaryTypographyProps={{ style: { color: 'pink' } }}/>
+                <ListItemText primary="FAQ" primaryTypographyProps={{ style: { color: 'black', fontSize:"0.75rem"} }}/>
                 </Button>
             </ListItem>
             <ListItem>
                 <Button href="/page2" onClick={handleClose}>
-                <ListItemText primary="Help" primaryTypographyProps={{ style: { color: 'pink' } }}/>
+                <ListItemText primary="Help" primaryTypographyProps={{ style: { color: 'black', fontSize:"0.75rem" } }}/>
                 </Button>
             </ListItem>
             <ListItem>
-                <Button href="/page2" onClick={handleClose}>
-                <ListItemText primary="Logout" primaryTypographyProps={{ style: { color: 'pink' } }}/>
+                <Button href="/" onClick={handleClose}>
+                <ListItemText primary="Logout" primaryTypographyProps={{ style: { color: 'black', fontSize:"0.75rem" } }}/>
                 </Button>
             </ListItem>
             </List>
 
           </Popover>
         </div>
-        {/* <div style={{ fontWeight: 'bold', color: 'white', fontSize: '25px' }}>{businessName}</div> */}
       </div>
     </header>
   );

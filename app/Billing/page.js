@@ -75,24 +75,26 @@ const page = () => {
       return 'black';
     }
   return (
-    <div className='py-20'>
+    <div className='py-20 bg-primary h-screen'>
         {userDict && <TopHeader businessName={userDict.companyName}/>}
         <div className='mx-2'>
           <Typography variant='h6' style={{fontWeight:'bold'}}>Current Retainer Package</Typography>
           <Card>
-            <CardContent className='flex'>
-              <DiamondIcon style={{color:getColorFromPrice(packagePrice), fontSize:80}} />
-              <div className='flex flex-col'>
+            <CardContent className='flex items-center space-x-2'>
+              <DiamondIcon style={{color:getColorFromPrice(packagePrice), fontSize:64}} />
+              <div className='flex flex-col border px-2 w-2/3 rounded-xl text-center'>
                 <Typography variant='caption'>Current Package</Typography>
                 <Typography variant='body1'>{packagePrice} USD/Month</Typography>
-                <Button variant='contained' onClick={() => router.push('/BusinessUpgrade')}>
-                  Upgrade
-                </Button>
               </div>
+              <Button variant='outlined' onClick={() => router.push('/BusinessUpgrade')}>
+                  Upgrade
+              </Button>
             </CardContent>
           </Card>
           
           {/* Below is the Transposed Table */}
+          <Typography variant='h6' style={{fontWeight:'bold'}}>Benefits</Typography>
+
           {fullPackageObjData && <PackageComparison packageDataMongoDb={fullPackageObjData.mongoDbObjects} />}
         </div>
         <SimpleBottomNavigation/>

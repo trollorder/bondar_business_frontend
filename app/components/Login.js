@@ -35,9 +35,9 @@ export default function Login({onSubmitForm}) {
 
   return (
     <ThemeProvider theme={defaultTheme}>
-      <Container component="main" maxWidth="xs" className='h-full'>
+      <Container component="main" maxWidth="xs" className='h-full flex flex-col justify-center'>
         {/* <CssBaseline /> */}
-        <Topdesign title="Log In" />
+        <Topdesign title="Log In" className='absolute top-0' />
         <Box
           sx={{
             marginTop: 1,
@@ -57,6 +57,7 @@ export default function Login({onSubmitForm}) {
               autoComplete="usrname"
               autoFocus
               value={userEmail}
+              className='bg-white'
               onChange={(e) => setUserEmail(e.target.value)}
             />
             <TextField
@@ -69,6 +70,7 @@ export default function Login({onSubmitForm}) {
               id="password"
               autoComplete="current-password"
               value = {password}
+              className='bg-white'
               onChange={(e) => setPassword(e.target.value)}
             />
 
@@ -88,7 +90,8 @@ export default function Login({onSubmitForm}) {
               type="submit"
               fullWidth
               variant="contained"
-              sx={{ mt: 3, mb: 2 }}
+              className='rounded-lg'
+              sx={{ mt: 3, mb: 2, py:2 }}
               style={{backgroundColor:'black'}}
             >
               Log In

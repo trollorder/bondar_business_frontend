@@ -97,7 +97,7 @@ const BusinessProfilePage = () => {
   }
 
   return (
-    <div className='py-20 bg-primary'>
+    <div className='py-14 bg-primary'>
       {userDict && <TopHeader businessName={userDict.companyName} />}
 
       <ProfileBox key={refresh} editMode={editMode} userEmail={userEmail} toggleEditMode={toggleEditMode} businessDetails={userDict} handleSaveProfile={handleSaveProfile} setBusinessDetails={setUserDict}/>

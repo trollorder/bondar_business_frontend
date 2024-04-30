@@ -10,7 +10,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
-import logo from "../../assets/logo.jpg"
+import logo from "../../public/logo.svg"
 import { useRouter } from 'next/navigation';
 
 // TODO remove, this demo shouldn't need to reset the theme.
@@ -22,8 +22,7 @@ export default function LandingPage() {
 
   return (
     <ThemeProvider theme={defaultTheme}>
-      <Container component="main" maxWidth="xs" className='bg-primary h-screen'>
-        <CssBaseline />
+      <Container component="main" maxWidth="xs" className='bg-primary h-screen flex flex-col items-center justify-center'>
         <Box
           sx={{
             display: 'flex',

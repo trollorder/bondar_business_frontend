@@ -19,7 +19,7 @@ const ProfileBox = ({userEmail, editMode, toggleEditMode, businessDetails, setBu
   },[])
 
   return (
-    <Box sx={{ textAlign: 'center', maxWidth: '400px', margin: 'auto', padding: '20px' }}>
+    <Box sx={{ textAlign: 'center', maxWidth: '400px', margin: 'auto' }}>
       <div className='flex flex-col justify-center'>
         <div className='flex flex-col items-center w-1/3 self-center'>
           {/* Profile Picture */}

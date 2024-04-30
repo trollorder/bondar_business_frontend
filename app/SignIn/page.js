@@ -5,6 +5,7 @@ import { toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 import { useRouter } from 'next/navigation'
 import axios from 'axios';
+import Topdesign from '../components/Topdesign';
 
 const page = () => {
     const router =  useRouter()
@@ -23,7 +24,7 @@ const page = () => {
       })
     }
   return (
-    <div className='bg-primary'> 
+    <div className='bg-primary h-screen overflow-auto'> 
       <ToastContainer/>
         <Login  onSubmitForm={onSubmitForm}/>
     </div>

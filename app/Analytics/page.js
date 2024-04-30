@@ -67,7 +67,7 @@ const page = () => {
             <Duration timeDurationDict={timeDurationDict}/>
           </div>
           <Typography variant='h5' className='px-4 mt-2 font-title' style={{fontWeight:'bolder'}}>Insights and Recommendations</Typography>
-          <div className='bg-white rounded-xl m-2 p-2 flex flex-col space-y-2'>
+          <div className='bg-white rounded-xl m-2 px-4 pt-8 flex flex-col space-y-2 pb-10'>
             <Typography variant='h6' className=' mb-2 font-title' style={{fontSize:'1rem', fontWeight:'bold'}}>Duration Recommendation</Typography>
             <Typography variant="body1">{insight.durationRecommendation}</Typography>
             <Typography variant='h6' className=' mb-2 font-title' style={{fontSize:'1rem', fontWeight:'bold'}}>Conversion Rate Recommendation</Typography>

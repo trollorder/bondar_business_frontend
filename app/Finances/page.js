@@ -115,23 +115,23 @@ function Finances(){
 
             <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                 <Tabs value={activeTab} onChange={handleChange}>
-                    <Tab label="Invoices" value="Invoices" />
-                    <Tab label="Orders" value="Orders" />
-                    <Tab label="Cards" value="Cards" />
+                    <Tab label="Invoices" value="Invoices"  style={{fontWeight:'bold'}}/>
+                    <Tab label="Orders" value="Orders" style={{fontWeight:'bold'}} />
+                    <Tab label="Cards" value="Cards" style={{fontWeight:'bold'}} />
                 </Tabs>
             </Box>
 
             {/* Invoices Testing */}
             {activeTab==='Invoices' && <div className='shadow-md p-2 rounded-sm m-2'>
 
-                <Typography variant='h4'>Invoices</Typography>
+                <Typography variant='h5' className='px-4 mt-2' style={{fontWeight:'bolder'}}>Invoices</Typography>
                 {invoices && invoices.map((eachInvoice) =>(
                     <StandardInvoice invoice={eachInvoice} key={eachInvoice.id} />
                 ))}
             </div>}
                 {/* Orders Testing */}
             {activeTab==='Orders' && <div className='shadow-md p-2 rounded-sm m-2'>
-                <Typography variant='h4'>Orders</Typography>
+                <Typography variant='h5' className='px-4 mt-2' style={{fontWeight:'bolder'}}>Orders</Typography>
 
                 {orders && orders.map((eachOrder) =>(
                     <StandardOrder order={eachOrder} key={eachOrder.id}/>
@@ -140,7 +140,7 @@ function Finances(){
                 {/* Cards Testing */}
             {activeTab === "Cards" && <div className='shadow-md p-2 rounded-sm m-2'>
 
-                <Typography variant='h4'>Cards</Typography>
+            <Typography variant='h5' className='px-4 mt-2' style={{fontWeight:'bolder'}}>Cards</Typography>
                 <div className='flex flex-col space-y-2 p-2'>
                     {cards && cards.map((eachCard) =>(
                         <StandardCardDetails card={eachCard} key={eachCard.id} onDeleteCard={onDeleteCard} />
