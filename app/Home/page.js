@@ -8,6 +8,8 @@ import { Typography } from '@mui/material';
 import Graph from "../../assets/graph.jpg"
 import Image from 'next/image';
 import imageplaceholder from "../../assets/imageplaceholder.jpg"
+import Placeholderimage from "./components/Placeholderimage"
+
 
 const page = () => {
     const [userEmail, setUserEmail] = useState(
@@ -51,7 +53,7 @@ const page = () => {
         <div>
           <h2>Latest Places Around Your Businesses</h2>
           <div>
-            <Image src={imageplaceholder} />
+            <Placeholderimage />
           </div>
           <div>
             <h1>Historical Business Insights</h1>

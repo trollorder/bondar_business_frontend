@@ -42,24 +42,45 @@ export default function SimpleBottomNavigation() {
     };
   
     return (
-      <Box sx={{ width: '100%', position: 'fixed', bottom: 0 }} >
+      <Box sx={{ width: '100%' , position: 'fixed', bottom: 0 }} >
         <BottomNavigation
           showLabels
           value={value}
           onChange={handleChange}
           className='bg-secondary text-black'
+          
           sx={{ 
             '& .MuiSvgIcon-root': {
               borderRadius: '8px', // Rounded square background
               backgroundColor: 'white', // White background color
-            },
+            }, height: '80px'
           }}
         >
-          <BottomNavigationAction label="Current Plan" className=' font-body' icon={<ListIcon />} />
-          <BottomNavigationAction label="Finances" icon={<CreditCardIcon />} />
-          <BottomNavigationAction label="Home" icon={<HomeIcon />} />
-          <BottomNavigationAction label="Analytics" icon={<AutoGraphIcon />} />
-          <BottomNavigationAction label="Business Profile" icon={<WorkOutlineIcon />} />
+          <BottomNavigationAction
+            label="Current Plan"
+            className='font-body text-xs' // Apply text-xs class for 0.5rem font size
+            icon={<ListIcon />}
+          />
+          <BottomNavigationAction
+            label="Finances"
+            className='text-xs' // Apply text-xs class for 0.5rem font size
+            icon={<CreditCardIcon />}
+          />
+          <BottomNavigationAction
+            label="Home"
+            className='text-xs' // Apply text-xs class for 0.5rem font size
+            icon={<HomeIcon />}
+          />
+          <BottomNavigationAction
+            label="Analytics"
+            className='text-xs' // Apply text-xs class for 0.5rem font size
+            icon={<AutoGraphIcon />}
+          />
+          <BottomNavigationAction
+            label="Business Profile"
+            className='text-xs' // Apply text-xs class for 0.5rem font size
+            icon={<WorkOutlineIcon />}
+          />
         </BottomNavigation>
       </Box>
     );
