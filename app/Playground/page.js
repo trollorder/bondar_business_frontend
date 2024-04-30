@@ -1,7 +1,6 @@
 'use client'
 import axios from 'axios';
 import StandardOrder from '../PaymentComponents/StandardOrder';
-import ImageUploader from '../components/ImageUploader'
 import { useEffect, useState } from 'react';
 import StandardInvoice from '../PaymentComponents/StandardInvoice';
 import StandardCardDetails from '../PaymentComponents/StandardCardDisplay';

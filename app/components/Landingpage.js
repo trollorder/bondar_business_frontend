@@ -22,15 +22,15 @@ export default function LandingPage() {
 
   return (
     <ThemeProvider theme={defaultTheme}>
-      <Container component="main" maxWidth="xs">
+      <Container component="main" maxWidth="xs" className='bg-primary h-screen'>
         <CssBaseline />
         <Box
           sx={{
-            marginTop: 8,
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
           }}
+          className='py-10'
         >
           <Image
             src={logo}
