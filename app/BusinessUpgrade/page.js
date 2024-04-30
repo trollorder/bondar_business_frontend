@@ -183,7 +183,7 @@ const Page = () => {
             {selectedCatalogObjSquareId&& fullPackageObjData && 
               <div>
                 {fullPackageObjData.mongoDbObjects.filter((eachItem) => eachItem.squareCatalogObjectId === selectedCatalogObjSquareId).map((catalogObject)=>(
-                  <SelectedPlanCard catalogObject={catalogObject}/>
+                  <SelectedPlanCard catalogObject={catalogObject} key={catalogObject.id}/>
                 ))}
               </div>
             }
@@ -194,11 +194,11 @@ const Page = () => {
                 <Typography variant='caption' style={{fontWeight:'bold'}}>Choose a Card</Typography>
                 <Tabs onChange={handleChange} value={activeTab}>
                   {cards.map((eachCard)=>(
-                    <Tab label={eachCard.last4} value={eachCard.id} />
+                    <Tab key={eachCard.id} label={eachCard.last4} value={eachCard.id} />
                   ))}
                 </Tabs>
                 {cards.map((eachCard) => (
-                  <div>
+                  <div key={eachCard.id}>
                     {activeTab === eachCard.id && <div>
                       <StandardCardDetails card={eachCard} isDisplay={true} key={eachCard.id} />
                       {/* <Button className='self-center' variant='contained' color='success' onClick={() => handleSelectCard(eachCard.id)}>Select Card and Pay</Button> */}

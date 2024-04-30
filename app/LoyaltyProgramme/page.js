@@ -133,7 +133,7 @@ function Page(){
                         <Typography variant='h6' className='font-black p-4'>{currentTab}</Typography>
                           {
                             loyaltyProgrammeDict.discountObjects.map((eachObj) => (
-                              <LoyaltyProgramLineItemCard data={eachObj} />
+                              <LoyaltyProgramLineItemCard data={eachObj} key={eachObj._id} />
                             ))
                           }
                       </div>
@@ -152,7 +152,7 @@ function Page(){
                         <Typography variant='h6' className='font-black p-4'>{currentTab}</Typography>
                         {
                           loyaltyProgrammeDict.couponObjects.map((eachObj) => (
-                            <LoyaltyProgramLineItemCard data={eachObj} />
+                            <LoyaltyProgramLineItemCard data={eachObj} key={eachObj._id} />
                           ))
                         }
                       </div>
@@ -171,7 +171,7 @@ function Page(){
                         <Typography variant='h6' className='font-black p-4'>{currentTab}</Typography>
                         {
                           loyaltyProgrammeDict.subscriptionObjects.map((eachObj) => (
-                            <LoyaltyProgramLineItemCard data={eachObj} />
+                            <LoyaltyProgramLineItemCard data={eachObj} key={eachObj._id} />
                           ))
                         }
                       </div>

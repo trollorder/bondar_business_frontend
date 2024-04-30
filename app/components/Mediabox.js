@@ -11,7 +11,7 @@ const MediaBox = ({userEmail, editMode, toggleEditMode,generalMediaUrls, onDelet
       {generalMediaUrls.length > 0 && (
         <div className="flex bg-white py-2 shadow-md rounded-xl flex-1 space-x-2 overflow-x-scroll justify-center w-full z-0">
           {generalMediaUrls.map((eachUrl) => (
-            <div className='space-y-2' >
+            <div className='space-y-2' key={`div${eachUrl}`} >
               <Image
                 key={eachUrl}
                 src={eachUrl}
